@@ -26,15 +26,18 @@ PODS:
   - FMDB/standard (2.5):
     - FMDB/common
   - MBProgressHUD (0.9.1)
+  - SKSlideViewController (0.0.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.4)
   - FMDB (~> 2.5)
   - MBProgressHUD (~> 0.9.1)
+  - SKSlideViewController (~> 0.0.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  SKSlideViewController: 9ecbbda4ded3d9ff1a3b17f0db73b28271e8a237
 
 COCOAPODS: 0.36.3

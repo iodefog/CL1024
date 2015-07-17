@@ -72,3 +72,9 @@
 #define COCOAPODS_VERSION_MINOR_MBProgressHUD 9
 #define COCOAPODS_VERSION_PATCH_MBProgressHUD 1
 
+// SKSlideViewController
+#define COCOAPODS_POD_AVAILABLE_SKSlideViewController
+#define COCOAPODS_VERSION_MAJOR_SKSlideViewController 0
+#define COCOAPODS_VERSION_MINOR_SKSlideViewController 0
+#define COCOAPODS_VERSION_PATCH_SKSlideViewController 1
+
