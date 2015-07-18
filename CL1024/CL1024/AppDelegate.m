@@ -32,6 +32,13 @@
     IIVDC.view.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = IIVDC;
     
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav_bg_ios6"] forBarMetrics:UIBarMetricsDefault];
+    NSMutableDictionary *barAttrs = [NSMutableDictionary dictionary];
+    [barAttrs setObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
+    [barAttrs setObject:[NSValue valueWithUIOffset:UIOffsetMake(0, 0)] forKey:UITextAttributeTextShadowOffset];
+    [[UINavigationBar appearance] setTitleTextAttributes:barAttrs];
+    
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     

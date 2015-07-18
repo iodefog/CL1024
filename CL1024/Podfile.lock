@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - BFUIViewAdditions (0.1.0)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
   - FMDB/common (2.5)
@@ -30,12 +31,14 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.4)
+  - BFUIViewAdditions (~> 0.1.0)
   - FMDB (~> 2.5)
   - MBProgressHUD (~> 0.9.1)
   - SKSlideViewController (~> 0.0.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  BFUIViewAdditions: 2047778bb98b19d9df4643f85cffb194e19079f3
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   SKSlideViewController: 9ecbbda4ded3d9ff1a3b17f0db73b28271e8a237
