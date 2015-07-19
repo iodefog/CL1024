@@ -10,4 +10,8 @@
 
 @interface CLBaseViewController : UIViewController
 
+- (void)clickedPerson:(UIBarButtonItem *)barItem;
+- (void)clickedSetting:(UIBarButtonItem *)barItem;
+- (UIBarButtonItem *)createButtonWithImage:(NSString *)image SEL:(SEL)sel;
+
 @end

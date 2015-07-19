@@ -10,7 +10,6 @@
 #import "CLHomeViewController.h"
 #import "CLPersonViewController.h"
 #import "CLSettingViewController.h"
-#import "SKSlideViewController.h"
 
 @interface AppDelegate ()
 
@@ -28,9 +27,9 @@
     CLPersonViewController *personVC = [[CLPersonViewController alloc] init];
     CLSettingViewController *settingVC = [[CLSettingViewController alloc] init];
     
-    SKSlideViewController *IIVDC = [SKSlideViewController getSlideViewControllerWithMainController:(id)homeNav leftController:settingVC rightController:personVC];
-    IIVDC.view.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = IIVDC;
+    self.IIVDC = [SKSlideViewController getSlideViewControllerWithMainController:(id)homeNav leftController:settingVC rightController:personVC];
+    self.IIVDC.view.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = self.IIVDC;
     
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav_bg_ios6"] forBarMetrics:UIBarMetricsDefault];
     NSMutableDictionary *barAttrs = [NSMutableDictionary dictionary];
