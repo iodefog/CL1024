@@ -25,9 +25,12 @@
     CLHomeViewController *homeVC = [[CLHomeViewController alloc] init];
     UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeVC];
     CLPersonViewController *personVC = [[CLPersonViewController alloc] init];
+    UINavigationController *personNav = [[UINavigationController alloc] initWithRootViewController:personVC];
+
     CLSettingViewController *settingVC = [[CLSettingViewController alloc] init];
-    
-    self.IIVDC = [SKSlideViewController getSlideViewControllerWithMainController:(id)homeNav leftController:settingVC rightController:personVC];
+    UINavigationController *settingNav = [[UINavigationController alloc] initWithRootViewController:settingVC];
+
+    self.IIVDC = [SKSlideViewController getSlideViewControllerWithMainController:(id)homeNav leftController:(id)settingNav rightController:(id)personNav];
     self.IIVDC.view.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = self.IIVDC;
     

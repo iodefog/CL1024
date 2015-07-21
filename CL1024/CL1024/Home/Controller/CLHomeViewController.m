@@ -15,6 +15,7 @@
     [super viewDidLoad];
     
     self.title  = @"草榴社区";
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.leftBarButtonItem = [self createButtonWithImage:@"icon_main_setting" SEL:@selector(clickedSetting:)];
 
