@@ -12,7 +12,6 @@
 
 //界面宽高
 #define BatteryHeight 20.0
-#define NavBarHeight  44.0
 #define TabBarHeight  49.0
 
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)

@@ -25,12 +25,12 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav_bg_ios6"]];
-    
 }
 
 
+- (void)layoutSubViews{
 
-
+}
 
 
 
