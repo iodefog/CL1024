@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CLBaseViewController.h"
 #import "SKSlideViewController.h"
-@interface CLAPIViewController : CLBaseViewController<SKSlideViewDelegate>
+@interface CLAPIViewController : CLBaseViewController<UIWebViewDelegate>
+
+@property (nonatomic, strong) NSURL *url;
+
+- (void)requestMain;
 
 @end

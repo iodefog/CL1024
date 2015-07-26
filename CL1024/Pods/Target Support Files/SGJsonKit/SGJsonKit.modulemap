@@ -1,0 +1,6 @@
+module SGJsonKit {
+  umbrella header "SGJsonKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

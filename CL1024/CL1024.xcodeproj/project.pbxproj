@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4F41A2D81B613405001B583A /* CLHomeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F41A2D71B613405001B583A /* CLHomeTableCell.m */; };
 		4F66C1BE1B63935200DC7490 /* CLHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F66C1BD1B63935200DC7490 /* CLHomeModel.m */; };
+		4F66C1C11B63BD3A00DC7490 /* CLFieldListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F66C1C01B63BD3A00DC7490 /* CLFieldListViewController.m */; };
 		4F8F160D1B5B4A3800306238 /* UIView+RMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F160C1B5B4A3800306238 /* UIView+RMAdditions.m */; };
 		4F8F16111B5B8A7C00306238 /* CLSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F16101B5B8A7C00306238 /* CLSettingCell.m */; };
 		4F8F16141B5B8C6200306238 /* CLSettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F16131B5B8C6200306238 /* CLSettingModel.m */; };
@@ -30,6 +31,8 @@
 		4F41A2D71B613405001B583A /* CLHomeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLHomeTableCell.m; sourceTree = "<group>"; };
 		4F66C1BC1B63935200DC7490 /* CLHomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLHomeModel.h; sourceTree = "<group>"; };
 		4F66C1BD1B63935200DC7490 /* CLHomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLHomeModel.m; sourceTree = "<group>"; };
+		4F66C1BF1B63BD3A00DC7490 /* CLFieldListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLFieldListViewController.h; sourceTree = "<group>"; };
+		4F66C1C01B63BD3A00DC7490 /* CLFieldListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLFieldListViewController.m; sourceTree = "<group>"; };
 		4F8F160A1B5B4A3800306238 /* DefaultDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultDefine.h; sourceTree = "<group>"; };
 		4F8F160B1B5B4A3800306238 /* UIView+RMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RMAdditions.h"; sourceTree = "<group>"; };
 		4F8F160C1B5B4A3800306238 /* UIView+RMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RMAdditions.m"; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 			children = (
 				4FE6F99D1B594EA100E93B6E /* CLHomeViewController.h */,
 				4FE6F99E1B594EA100E93B6E /* CLHomeViewController.m */,
+				4F66C1BF1B63BD3A00DC7490 /* CLFieldListViewController.h */,
+				4F66C1C01B63BD3A00DC7490 /* CLFieldListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -422,6 +427,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F66C1C11B63BD3A00DC7490 /* CLFieldListViewController.m in Sources */,
 				4FE6F9A31B594EBA00E93B6E /* CLPersonViewController.m in Sources */,
 				4FE6F9A71B594EDA00E93B6E /* CLSettingViewController.m in Sources */,
 				4F8F160D1B5B4A3800306238 /* UIView+RMAdditions.m in Sources */,

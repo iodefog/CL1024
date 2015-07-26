@@ -1,0 +1,6 @@
+module NSObject_HLPropertyListing {
+  umbrella header "NSObject+HLPropertyListing-umbrella.h"
+
+  export *
+  module * { export * }
+}

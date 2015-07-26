@@ -9,6 +9,7 @@
 #import "CLHomeViewController.h"
 #import "AKSegmentedControl.h"
 #import "CLHomeTableCell.h"
+#import "CLFieldListViewController.h"
 
 @interface CLHomeViewController() <UITableViewDataSource, UITableViewDelegate>
 
@@ -56,22 +57,22 @@
 }
 
 - (void)intanceData{
-    CLHomeModel *a_Model1 = [CLHomeModel createModelWithIconImage:@"icon_technical_discussion" subIconText:nil titleText:@"技术讨论区" detailText:@"日常生活 兴趣交流 时事经济 求助求档 会员闲谈吹水区" subDetailText:nil url:nil];
-    CLHomeModel *a_Model2 = [CLHomeModel createModelWithIconImage:@"icon_new_era" subIconText:nil titleText:@"新时代的我们" detailText:@"草榴贴图区 加大你的带宽！ 加大你的内存！加大你的显示器！" subDetailText:nil url:nil];
-    CLHomeModel *a_Model3 = [CLHomeModel createModelWithIconImage:@"icon_daguerre" subIconText:nil titleText:@"连蓝雨的旗帜" detailText:@"草榴自拍区\n分享你我管权限的最美" subDetailText:nil url:nil];
-    CLHomeModel *a_Model4 = [CLHomeModel createModelWithIconImage:@"icon_literature_exchange" subIconText:nil titleText:@"成人文学交流区" detailText:@"草榴文学区\n欢迎各位发表" subDetailText:nil url:nil];
-    CLHomeModel *a_Model5 = [CLHomeModel createModelWithIconImage:@"icon_information" subIconText:nil titleText:@"草榴咨询" detailText:@"公告有关本站最新动向 会员须知 请经常来看看" subDetailText:nil url:nil];
+    CLHomeModel *a_Model1 = [CLHomeModel createModelWithIconImage:@"icon_technical_discussion" subIconText:nil titleText:@"技术讨论区" detailText:@"日常生活 兴趣交流 时事经济 求助求档 会员闲谈吹水区" subDetailText:nil modelType:kTechComment];
+    CLHomeModel *a_Model2 = [CLHomeModel createModelWithIconImage:@"icon_new_era" subIconText:nil titleText:@"新时代的我们" detailText:@"草榴贴图区 加大你的带宽！ 加大你的内存！加大你的显示器！" subDetailText:nil modelType:kNewUs];
+    CLHomeModel *a_Model3 = [CLHomeModel createModelWithIconImage:@"icon_daguerre" subIconText:nil titleText:@"连蓝雨的旗帜" detailText:@"草榴自拍区\n分享你我管权限的最美" subDetailText:nil modelType:kOurFlag];
+    CLHomeModel *a_Model4 = [CLHomeModel createModelWithIconImage:@"icon_literature_exchange" subIconText:nil titleText:@"成人文学交流区" detailText:@"草榴文学区\n欢迎各位发表" subDetailText:nil modelType:kTextQu];
+    CLHomeModel *a_Model5 = [CLHomeModel createModelWithIconImage:@"icon_information" subIconText:nil titleText:@"草榴咨询" detailText:@"公告有关本站最新动向 会员须知 请经常来看看" subDetailText:nil modelType:kCLZixun];
     self.clRestArray = @[a_Model1, a_Model2, a_Model3, a_Model4, a_Model5];
 
 // -----------------------------------------------------------------------------------------------
     
-    CLHomeModel *b_Model1 = [CLHomeModel createModelWithIconImage:@"icon_asia_codeless_original" subIconText:@"子版块" titleText:@"亚洲无码原创区" detailText:@"自由发布亚洲最新无修正资讯片 亚洲无码AV大联盟" subDetailText:@"亚洲无码转帖交流区" url:nil];
-    CLHomeModel *b_Model2 = [CLHomeModel createModelWithIconImage:@"icon_asia_ovod_original" subIconText:@"子版块" titleText:@"亚洲有码原创区" detailText:@"自由发布亚洲最新有修正资讯片 以及三级等其他资讯片" subDetailText:@"亚洲有码转帖区" url:nil];
-    CLHomeModel *b_Model3 = [CLHomeModel createModelWithIconImage:@"icon_western_original" subIconText:@"子版块" titleText:@"欧美原创区" detailText:@"自由发布纯正的欧美成人资讯片" subDetailText:@"欧美转帖专区" url:nil];
-    CLHomeModel *b_Model4 = [CLHomeModel createModelWithIconImage:@"icon_cartoon_original" subIconText:@"子版块" titleText:@"动漫原创专区" detailText:@"自由发布任何H动画漫画" subDetailText:@"动漫转帖区" url:nil];
-    CLHomeModel *b_Model5 = [CLHomeModel createModelWithIconImage:@"icon_http_download" subIconText:nil titleText:@"HTTP下载区" detailText:@"自由发布各类HTTP/Ray/eMule等方式下载" subDetailText:nil url:nil];
-    CLHomeModel *b_Model6 = [CLHomeModel createModelWithIconImage:@"icon_online_movie" subIconText:nil titleText:@"在线成人影院" detailText:@"在线欣赏 \n即点即看" subDetailText:nil url:nil];
-    CLHomeModel *b_Model7 = [CLHomeModel createModelWithIconImage:@"icon_movie_storage" subIconText:@"子版块" titleText:@"草榴影视库" detailText:@"发布2-3个月后的帖子，会转移到这里，保留一段时间后，删除(会员可看)" subDetailText:@"博彩区" url:nil];
+    CLHomeModel *b_Model1 = [CLHomeModel createModelWithIconImage:@"icon_asia_codeless_original" subIconText:@"子版块" titleText:@"亚洲无码原创区" detailText:@"自由发布亚洲最新无修正资讯片 亚洲无码AV大联盟" subDetailText:@"亚洲无码转帖交流区" modelType:kWuMaZhuanQu];
+    CLHomeModel *b_Model2 = [CLHomeModel createModelWithIconImage:@"icon_asia_ovod_original" subIconText:@"子版块" titleText:@"亚洲有码原创区" detailText:@"自由发布亚洲最新有修正资讯片 以及三级等其他资讯片" subDetailText:@"亚洲有码转帖区" modelType:kYouMaZhuanQu];
+    CLHomeModel *b_Model3 = [CLHomeModel createModelWithIconImage:@"icon_western_original" subIconText:@"子版块" titleText:@"欧美原创区" detailText:@"自由发布纯正的欧美成人资讯片" subDetailText:@"欧美转帖专区" modelType:kOuMeiZhuanQu];
+    CLHomeModel *b_Model4 = [CLHomeModel createModelWithIconImage:@"icon_cartoon_original" subIconText:@"子版块" titleText:@"动漫原创专区" detailText:@"自由发布任何H动画漫画" subDetailText:@"动漫转帖区" modelType:kDongManZhuanQu];
+    CLHomeModel *b_Model5 = [CLHomeModel createModelWithIconImage:@"icon_http_download" subIconText:nil titleText:@"HTTP下载区" detailText:@"自由发布各类HTTP/Ray/eMule等方式下载" subDetailText:nil modelType:kHTTPDownLoad];
+    CLHomeModel *b_Model6 = [CLHomeModel createModelWithIconImage:@"icon_online_movie" subIconText:nil titleText:@"在线成人影院" detailText:@"在线欣赏 \n即点即看" subDetailText:nil modelType:kOnlineMovie];
+    CLHomeModel *b_Model7 = [CLHomeModel createModelWithIconImage:@"icon_movie_storage" subIconText:@"子版块" titleText:@"草榴影视库" detailText:@"发布2-3个月后的帖子，会转移到这里，保留一段时间后，删除(会员可看)" subDetailText:@"博彩区" modelType:kMovieField];
 
     self.clMoveArray = @[b_Model1, b_Model2, b_Model3, b_Model4, b_Model5, b_Model6, b_Model7];
 }
@@ -89,6 +90,12 @@
 
 - (void)headButtonClicked:(UIButton *)sender{
 
+}
+
+- (void)pushToFieldListVCWithUrl:(NSURL *)url{
+    CLFieldListViewController *fieldListVC = [[CLFieldListViewController alloc] init];
+    fieldListVC.url = url;
+    [self.navigationController pushViewController:fieldListVC animated:YES];
 }
 
 #pragma mark - TabelView Method
@@ -136,7 +143,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
+    CLHomeModel *model = nil;
+    if(tableView == self.clMoveTableView){
+        model = self.clMoveArray[indexPath.section];
+    }else if(tableView == self.clRestTableView){
+        model = self.clRestArray[indexPath.section];
+    }
+    
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(pushToFieldListVCWithUrl:) object:model.url];;
+    [self performSelector:@selector(pushToFieldListVCWithUrl:) withObject:model.url afterDelay:0.2];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
