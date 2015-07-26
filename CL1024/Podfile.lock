@@ -30,7 +30,7 @@ PODS:
   - GDataXML-HTML (1.2.0)
   - MBProgressHUD (0.9.1)
   - NSObject+HLPropertyListing (1.0.0)
-  - SGJsonKit (1.2.4)
+  - RTLabel (1.0.1)
   - SKSlideViewController (0.0.1)
 
 DEPENDENCIES:
@@ -41,7 +41,7 @@ DEPENDENCIES:
   - GDataXML-HTML (~> 1.2.0)
   - MBProgressHUD (~> 0.9.1)
   - NSObject+HLPropertyListing
-  - SGJsonKit (~> 1.2.4)
+  - RTLabel (~> 1.0.1)
   - SKSlideViewController (~> 0.0.1)
 
 SPEC CHECKSUMS:
@@ -52,7 +52,7 @@ SPEC CHECKSUMS:
   GDataXML-HTML: dac3692417e9fc612f8e12d8baae3706fccedcc8
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   NSObject+HLPropertyListing: 49bcb827af789ebc4817c4922e466df29a07ef04
-  SGJsonKit: 9b0a3a2d35781f3455bc1df6e277efe14e7f32ab
+  RTLabel: 6005d07fef57b101097c4271f804daae3110cbca
   SKSlideViewController: 9ecbbda4ded3d9ff1a3b17f0db73b28271e8a237
 
 COCOAPODS: 0.38.1

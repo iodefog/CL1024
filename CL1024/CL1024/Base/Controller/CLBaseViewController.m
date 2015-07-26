@@ -25,8 +25,12 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav_bg_ios6"]];
+    self.navigationItem.leftBarButtonItem = [self createButtonWithImage:@"navi_back_arrows" SEL:@selector(popToBack:) left:YES];
 }
 
+- (void)popToBack:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)layoutSubViews{
 
@@ -55,12 +59,20 @@
 
 #pragma mark - Self create
 
-- (UIBarButtonItem *)createButtonWithImage:(NSString *)image SEL:(SEL)sel{
+- (UIBarButtonItem *)createButtonWithImage:(NSString *)image SEL:(SEL)sel left:(BOOL)left{
     
     UIButton *itemButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [itemButton setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
     itemButton.showsTouchWhenHighlighted = YES;
-    itemButton.frame = CGRectMake(0, 0, 60, 44);
+    itemButton.frame = CGRectMake(0, 0, 64, 44);
+    if (IOS7) {
+        if (left) {
+            [itemButton setImageEdgeInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
+        }else {
+            [itemButton setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+        }
+    }
+
     [itemButton addTarget:self action:sel forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithCustomView:itemButton];
     return barItem;

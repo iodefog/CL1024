@@ -12,7 +12,7 @@
 
 - (void)clickedPerson:(UIBarButtonItem *)barItem;
 - (void)clickedSetting:(UIBarButtonItem *)barItem;
-- (UIBarButtonItem *)createButtonWithImage:(NSString *)image SEL:(SEL)sel;
+- (UIBarButtonItem *)createButtonWithImage:(NSString *)image SEL:(SEL)sel left:(BOOL)left;
 - (void)layoutSubViews;
 
 @end

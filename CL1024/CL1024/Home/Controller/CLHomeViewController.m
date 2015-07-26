@@ -42,8 +42,8 @@
     
     self.title  = @"草榴社区";
     self.view.backgroundColor = UIColorFromRGB(0xf9f9ed);
-    self.navigationItem.leftBarButtonItem = [self createButtonWithImage:@"icon_main_setting" SEL:@selector(clickedSetting:)];
-    self.navigationItem.rightBarButtonItem = [self createButtonWithImage:@"icon_main_person" SEL:@selector(clickedPerson:)];
+    self.navigationItem.leftBarButtonItem = [self createButtonWithImage:@"icon_main_setting" SEL:@selector(clickedSetting:) left:YES];
+    self.navigationItem.rightBarButtonItem = [self createButtonWithImage:@"icon_main_person" SEL:@selector(clickedPerson:) left:NO];
     
     [self intanceData];
     
@@ -92,9 +92,10 @@
 
 }
 
-- (void)pushToFieldListVCWithUrl:(NSURL *)url{
+- (void)pushToFieldListVCWithUrl:(CLHomeModel *)model{
     CLFieldListViewController *fieldListVC = [[CLFieldListViewController alloc] init];
-    fieldListVC.url = url;
+    fieldListVC.url = model.url;
+    fieldListVC.title = model.titleText;
     [self.navigationController pushViewController:fieldListVC animated:YES];
 }
 
@@ -151,8 +152,8 @@
         model = self.clRestArray[indexPath.section];
     }
     
-    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(pushToFieldListVCWithUrl:) object:model.url];;
-    [self performSelector:@selector(pushToFieldListVCWithUrl:) withObject:model.url afterDelay:0.2];
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(pushToFieldListVCWithUrl:) object:model];;
+    [self performSelector:@selector(pushToFieldListVCWithUrl:) withObject:model afterDelay:0.2];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
