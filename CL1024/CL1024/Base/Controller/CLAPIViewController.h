@@ -11,8 +11,11 @@
 #import "SKSlideViewController.h"
 @interface CLAPIViewController : CLBaseViewController<UIWebViewDelegate>
 
-@property (nonatomic, strong) NSURL *url;
+@property (nonatomic, strong) NSURL             *url;
+@property (nonatomic, strong) NSMutableArray    *model;
 
 - (void)requestMain;
+
+- (void)reloadResponseData;
 
 @end

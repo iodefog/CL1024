@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self requestMain];
+    [self requestMain];
     
     [self.view addSubview:self.tableView];
     
@@ -31,6 +31,10 @@
     CGFloat screenHeight = kScreenHeight;
     CGFloat navHeight = kNavHeight;
     self.tableView.height = screenHeight - navHeight;
+}
+
+- (void)reloadResponseData{
+    [self.tableView reloadData];
 }
 
 
@@ -45,7 +49,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return self.model.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -54,7 +58,7 @@
 
 - (CLFieldListCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CLFieldListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CLFieldListCell" forIndexPath:indexPath];
-    [cell setObject:nil];
+    [cell setObject:self.model[indexPath.row]];
     return cell;
 }
 

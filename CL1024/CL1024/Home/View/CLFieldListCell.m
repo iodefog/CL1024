@@ -8,6 +8,8 @@
 
 #import "CLFieldListCell.h"
 #import "RTLabel.h"
+#import "CLFieldListModel.h"
+
 @interface CLFieldListCell()
 
 @property (nonatomic, strong) RTLabel       *titleLabel;
@@ -41,11 +43,11 @@
 }
 
 
-- (void)setObject:(id)item{
-    self.titleLabel.text = @"得了多动症的男女[120P]得了多动症的男女[120P]得了多动症的男女[120P]";
-    self.authorLabel.text = @"风情";
-    self.timeLabel.text = @"2015-07-25";
-    self.commentCountLabel.text = @"109";
+- (void)setObject:(CLFieldListModel *)item{
+    self.titleLabel.text = item.title;
+    self.authorLabel.text = item.author;
+    self.timeLabel.text = item.time;
+    self.commentCountLabel.text = item.commentCount;
     self.haveReadLabel.hidden = NO;
 }
 
@@ -53,10 +55,10 @@
     [super layoutSubviews];
     self.titleLabel.frame = CGRectMake(10, 7, self.width - 60, 50);
     self.titleLabel.height = self.titleLabel.optimumSize.height;
-    self.haveReadLabel.frame = CGRectMake(self.width-self.haveReadLabel.width-40, self.titleLabel.top, 30, 16);
+    self.haveReadLabel.frame = CGRectMake(self.width-40, self.titleLabel.top, 30, 16);
     self.authorLabel.frame =CGRectMake(10, 53, 200, 15);
     self.timeLabel.frame = CGRectMake(340/2, self.authorLabel.top, 130/2, self.authorLabel.height);
-    self.commentIcon.frame = CGRectMake(250, self.timeLabel.top, 30/2, 30/2);
+    self.commentIcon.frame = CGRectMake(self.timeLabel.right+40, self.timeLabel.top, 30/2, 30/2);
     self.commentCountLabel.frame = CGRectMake(self.commentIcon.left+self.commentIcon.width+5, self.timeLabel.top, 60, self.timeLabel.height);
 }
 
