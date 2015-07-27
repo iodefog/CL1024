@@ -8,15 +8,14 @@
 
 #import "CLFieldListCell.h"
 #import "RTLabel.h"
-#import "CLFieldListModel.h"
 
-@interface CLFieldListCell()
+@interface CLFieldListCell()<RTLabelDelegate>
 
 @property (nonatomic, strong) RTLabel       *titleLabel;
-@property (nonatomic, strong) RTLabel       *authorLabel;
-@property (nonatomic, strong) RTLabel       *timeLabel;
-@property (nonatomic, strong) RTLabel       *commentCountLabel;
-@property (nonatomic, strong) RTLabel       *haveReadLabel;
+@property (nonatomic, strong) UILabel       *authorLabel;
+@property (nonatomic, strong) UILabel       *timeLabel;
+@property (nonatomic, strong) UILabel       *commentCountLabel;
+@property (nonatomic, strong) UILabel       *haveReadLabel;
 @property (nonatomic, strong) UIImageView   *commentIcon;
 
 @end
@@ -45,10 +44,21 @@
 
 - (void)setObject:(CLFieldListModel *)item{
     self.titleLabel.text = item.title;
+    [self giveValueToUrl];
     self.authorLabel.text = item.author;
     self.timeLabel.text = item.time;
     self.commentCountLabel.text = item.commentCount;
     self.haveReadLabel.hidden = NO;
+}
+
+- (void)giveValueToUrl{
+    for (RTLabelComponent *component in self.titleLabel.textComponents) {
+       NSString *url = component.attributes[@"href"];
+        if (url) {
+            self.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",DefalutHost,url]];
+            break;
+        }
+    }
 }
 
 - (void)layoutSubviews{
@@ -65,39 +75,44 @@
 - (RTLabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel = [[RTLabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.userInteractionEnabled = NO;
+        _titleLabel.font = [UIFont systemFontOfSize:14];
     }
     return _titleLabel;
 }
 
-- (RTLabel *)authorLabel{
+- (UILabel *)authorLabel{
     if (!_authorLabel) {
-        _authorLabel = [[RTLabel alloc] initWithFrame:CGRectZero];
+        _authorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _authorLabel.font = [UIFont systemFontOfSize:10];
+        _authorLabel.textColor = UIColorFromRGB(0xafafaf);
     }
     return _authorLabel;
 }
 
-- (RTLabel *)timeLabel{
+- (UILabel *)timeLabel{
     if (!_timeLabel) {
-        _timeLabel = [[RTLabel alloc] initWithFrame:CGRectZero];
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.font = [UIFont systemFontOfSize:10];
+        _timeLabel.textColor = UIColorFromRGB(0xafafaf);
     }
     return _timeLabel;
 }
 
-- (RTLabel *)commentCountLabel{
+- (UILabel *)commentCountLabel{
     if (!_commentCountLabel) {
-        _commentCountLabel = [[RTLabel alloc] initWithFrame:CGRectZero];
+        _commentCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _commentCountLabel.font = [UIFont systemFontOfSize:10];
+        _commentCountLabel.textColor = UIColorFromRGB(0xafafaf);
     }
     return _commentCountLabel;
 }
 
-- (RTLabel *)haveReadLabel{
+- (UILabel *)haveReadLabel{
     if (!_haveReadLabel) {
-        _haveReadLabel = [[RTLabel alloc] initWithFrame:CGRectZero];
-        _haveReadLabel.font = [UIFont systemFontOfSize:15];
+        _haveReadLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _haveReadLabel.font = [UIFont systemFontOfSize:14];
+        _haveReadLabel.textColor = [UIColor grayColor];
         _haveReadLabel.text = @"已读";
         _haveReadLabel.backgroundColor = [UIColor orangeColor];
         _haveReadLabel.hidden = YES;

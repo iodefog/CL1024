@@ -8,6 +8,7 @@
 
 #import "CLAPIViewController.h"
 #import "UIKit+AFNetworking.h"
+#import "AFNetworking.h"
 #import "CLFieldListModel.h"
 
 @implementation CLAPIViewController
@@ -23,17 +24,17 @@
 
 - (void)requestMain{
     self.url = [NSURL URLWithString:@"http://cc.bearhk.info/thread0806.php?fid=7&search=&page=1"];
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-    [webView loadRequest:[NSURLRequest requestWithURL:self.url] MIMEType:@"text/html" textEncodingName:nil progress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        
-    } success:^NSData *(NSHTTPURLResponse *response, NSData *data) {
-        self.model = [CLFieldListModel parseFieldListWithData:data];
+    NSURLRequest *request = [NSURLRequest requestWithURL:self.url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        self.model = [CLFieldListModel parseFieldListWithData:responseObject];
         [self reloadResponseData];
-        return data;
-    } failure:^(NSError *error) {
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
-    [self.view addSubview:webView];
+    NSOperationQueue *queue = [NSOperationQueue mainQueue];
+    [queue addOperation:operation];
     
 }
 @end

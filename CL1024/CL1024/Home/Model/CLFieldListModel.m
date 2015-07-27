@@ -14,9 +14,8 @@
 - (void)parseFieldListWithData:(GDataXMLNode *)node index:(NSInteger)index{
     self.author  = [[node firstNodeForXPath:[NSString stringWithFormat:@"//tr[%ld]/td[3]/a", index] error:nil] stringValue];
     self.time = [[node firstNodeForXPath:[NSString stringWithFormat:@"//tr[%ld]/td[3]/div", index] error:nil] stringValue];
-    self.title = [[node firstNodeForXPath:[NSString stringWithFormat:@"//tr[%ld]/td[2]/h3/a", index] error:nil] stringValue];
+    self.title = [[node firstNodeForXPath:[NSString stringWithFormat:@"//tr[%ld]/td[2]/h3/a", index] error:nil] XMLString];
     self.commentCount = [[node firstNodeForXPath:[NSString stringWithFormat:@"//tr[%ld]/td[4]", index] error:nil] stringValue];
-    self.url = [[node firstNodeForXPath:[NSString stringWithFormat:@"//tr[%ld]/td[2]/h3/a", index] error:nil] stringValue];
 }
 
 + (NSMutableArray *)parseFieldListWithData:(NSData *)data{

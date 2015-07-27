@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CLFieldListModel.h"
 
 @interface CLFieldListCell : UITableViewCell
+
+@property (nonatomic, strong) NSURL *url;
 
 - (void)setObject:(id)item;
 

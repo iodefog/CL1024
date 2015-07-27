@@ -7,8 +7,9 @@
 //
 
 #import "CLFieldListViewController.h"
+#import "CLFieldViewController.h"
 #import "CLFieldListCell.h"
-
+#import "MJRefresh.h"
 @interface CLFieldListViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -22,6 +23,21 @@
     [self requestMain];
     
     [self.view addSubview:self.tableView];
+    
+    __block __weak CLFieldListViewController *mySelf = self;
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        sleep(3);
+        [mySelf.tableView.header endRefreshing];
+    }];
+    [self.tableView.header beginRefreshing];
+
+    self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        sleep(3);
+        [mySelf.tableView.footer endRefreshing];
+    }];
+
     
     [self layoutSubViews];
 }
@@ -60,6 +76,13 @@
     CLFieldListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CLFieldListCell" forIndexPath:indexPath];
     [cell setObject:self.model[indexPath.row]];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    CLFieldListCell *cell = (CLFieldListCell *)[tableView cellForRowAtIndexPath:indexPath];
+    CLFieldViewController *fieldVC = [[CLFieldViewController alloc] init];
+    fieldVC.url = cell.url;
+    [self.navigationController pushViewController:fieldVC animated:YES];
 }
 
 #pragma mark -  Create View
