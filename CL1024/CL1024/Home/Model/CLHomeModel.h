@@ -31,8 +31,8 @@ typedef enum {
 @property (nonatomic, strong) NSString    *titleText;
 @property (nonatomic, strong) NSString    *detailText;
 @property (nonatomic, strong) NSString    *subDetailText;
-@property (nonatomic, strong) NSURL       *url;
-@property (nonatomic, strong) NSURL       *subUrl;
+@property (nonatomic, strong) NSString    *url;
+@property (nonatomic, strong) NSString    *subUrl;
 @property (nonatomic, assign) KModelType  modelType;
 @property (nonatomic, assign) BOOL        needSubIcon;
 

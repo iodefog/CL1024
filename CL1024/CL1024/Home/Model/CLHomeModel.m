@@ -19,12 +19,12 @@
     return mm;
 }
 
-- (NSURL *)url{
-        return [NSURL URLWithString:[self getRightUrlStrWithSub:NO]];
+- (NSString *)url{
+        return [self getRightUrlStrWithSub:NO];
 }
 
-- (NSURL *)subUrl{
-    return [NSURL URLWithString:[self getRightUrlStrWithSub:YES]];
+- (NSString *)subUrl{
+    return [self getRightUrlStrWithSub:YES];
 }
 
 - (NSString *)getRightUrlStrWithSub:(BOOL)sub{

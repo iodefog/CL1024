@@ -11,7 +11,7 @@
 
 @interface CLFieldListCell : UITableViewCell
 
-@property (nonatomic, strong) NSURL *url;
+@property (nonatomic, strong) NSString *url;
 
 - (void)setObject:(id)item;
 

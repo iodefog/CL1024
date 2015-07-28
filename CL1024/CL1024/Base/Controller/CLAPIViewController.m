@@ -23,8 +23,8 @@
 }
 
 - (void)requestMain{
-    self.url = [NSURL URLWithString:@"http://cc.bearhk.info/thread0806.php?fid=7&search=&page=1"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:self.url];
+    NSString *newUrl = [NSString stringWithFormat:@"%@&search=&page=1",self.url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:newUrl]];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.model = [CLFieldListModel parseFieldListWithData:responseObject];

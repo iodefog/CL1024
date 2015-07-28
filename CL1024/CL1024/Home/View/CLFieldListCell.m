@@ -55,7 +55,7 @@
     for (RTLabelComponent *component in self.titleLabel.textComponents) {
        NSString *url = component.attributes[@"href"];
         if (url) {
-            self.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",DefalutHost,url]];
+            self.url = [NSString stringWithFormat:@"%@%@",DefalutHost,url];
             break;
         }
     }
