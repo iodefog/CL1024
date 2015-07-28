@@ -10,6 +10,7 @@
 #import "CLFieldViewController.h"
 #import "CLFieldListCell.h"
 #import "MJRefresh.h"
+
 @interface CLFieldListViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -20,26 +21,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self requestMain];
-    
     [self.view addSubview:self.tableView];
+    [self layoutSubViews];
     
     __block __weak CLFieldListViewController *mySelf = self;
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
         sleep(3);
         [mySelf.tableView.header endRefreshing];
+        [CLFieldListModel DeleteAllModelFromManagedObjectContextModel];
     }];
     [self.tableView.header beginRefreshing];
-
+    
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
         sleep(3);
         [mySelf.tableView.footer endRefreshing];
     }];
 
+    self.model = [CLFieldListModel queryFromManagedObjectContext];
+    [self.tableView reloadData];
     
-    [self layoutSubViews];
+    [self requestMain];
 }
 
 - (void)layoutSubViews{
@@ -57,6 +60,8 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+
 
 #pragma mark - UITabelView Method
 
@@ -81,6 +86,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     CLFieldListCell *cell = (CLFieldListCell *)[tableView cellForRowAtIndexPath:indexPath];
     CLFieldViewController *fieldVC = [[CLFieldViewController alloc] init];
+    CLFieldListModel *model = self.model[indexPath.row];
+    fieldVC.title = model.titleStr;
     fieldVC.url = cell.url;
     [self.navigationController pushViewController:fieldVC animated:YES];
 }

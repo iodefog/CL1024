@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F0A66FD1B67ACBD002A1989 /* CL1024.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A66FB1B67ACBD002A1989 /* CL1024.xcdatamodeld */; };
 		4F41A2D81B613405001B583A /* CLHomeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F41A2D71B613405001B583A /* CLHomeTableCell.m */; };
 		4F66C1BE1B63935200DC7490 /* CLHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F66C1BD1B63935200DC7490 /* CLHomeModel.m */; };
 		4F66C1C11B63BD3A00DC7490 /* CLFieldListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F66C1C01B63BD3A00DC7490 /* CLFieldListViewController.m */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F0A66FC1B67ACBD002A1989 /* CL1024.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CL1024.xcdatamodel; sourceTree = "<group>"; };
 		4F41A2D61B613405001B583A /* CLHomeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLHomeTableCell.h; sourceTree = "<group>"; };
 		4F41A2D71B613405001B583A /* CLHomeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLHomeTableCell.m; sourceTree = "<group>"; };
 		4F66C1BC1B63935200DC7490 /* CLHomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLHomeModel.h; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				4FE6F94C1B59341400E93B6E /* Info.plist */,
 				4FE6F94D1B59341400E93B6E /* main.m */,
 				4F8F160E1B5B4AA700306238 /* CL1024-Prefix.pch */,
+				4F0A66FB1B67ACBD002A1989 /* CL1024.xcdatamodeld */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				4FE6F99B1B594B4500E93B6E /* CLHTTPRequest.m in Sources */,
 				4FF2518B1B651ABC0075E13D /* CLFieldListModel.m in Sources */,
 				4FE6F9931B594AD600E93B6E /* CLAPIViewController.m in Sources */,
+				4F0A66FD1B67ACBD002A1989 /* CL1024.xcdatamodeld in Sources */,
 				4F8F16111B5B8A7C00306238 /* CLSettingCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -612,6 +616,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4F0A66FB1B67ACBD002A1989 /* CL1024.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4F0A66FC1B67ACBD002A1989 /* CL1024.xcdatamodel */,
+			);
+			currentVersion = 4F0A66FC1B67ACBD002A1989 /* CL1024.xcdatamodel */;
+			path = CL1024.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4FE6F9401B59341400E93B6E /* Project object */;
 }

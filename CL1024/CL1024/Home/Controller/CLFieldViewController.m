@@ -24,7 +24,7 @@
     CGFloat navHeight = kNavHeight;
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, screemHeight - navHeight)];
     self.webView.delegate = self;
-//    self.webView.scalesPageToFit = YES;
+    self.webView.scalesPageToFit = YES;
     [self.view addSubview:self.webView];
     
     __block __weak CLFieldViewController *mySelf = self;
@@ -62,6 +62,10 @@
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
+    
+    self.webView.scalesPageToFit = NO;
+
+    
     NSString *str = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '80%'";
     [webView stringByEvaluatingJavaScriptFromString:str];
     
