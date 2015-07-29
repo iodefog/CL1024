@@ -105,11 +105,19 @@
 		4F8F16091B5B4A3800306238 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				4F9CEEF41B6900510029E72D /* Custom */,
 				4F8F160A1B5B4A3800306238 /* DefaultDefine.h */,
 				4F8F160B1B5B4A3800306238 /* UIView+RMAdditions.h */,
 				4F8F160C1B5B4A3800306238 /* UIView+RMAdditions.m */,
 			);
 			path = Others;
+			sourceTree = "<group>";
+		};
+		4F9CEEF41B6900510029E72D /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 		4FE6F93F1B59341400E93B6E = {
@@ -379,6 +387,7 @@
 				TargetAttributes = {
 					4FE6F9471B59341400E93B6E = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 4XNXN38KSW;
 					};
 				};
 			};
@@ -572,10 +581,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "CL1024/CL1024-Prefix.pch";
 				INFOPLIST_FILE = CL1024/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -586,10 +598,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "CL1024/CL1024-Prefix.pch";
 				INFOPLIST_FILE = CL1024/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;

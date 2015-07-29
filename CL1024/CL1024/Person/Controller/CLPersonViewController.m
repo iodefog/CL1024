@@ -15,7 +15,7 @@
     
     self.title  = @"person";
     self.view.backgroundColor = [UIColor yellowColor];
-
+    self.navigationItem.leftBarButtonItem = nil;
 }
 
 @end

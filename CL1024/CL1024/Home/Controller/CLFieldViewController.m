@@ -9,6 +9,8 @@
 #import "CLFieldViewController.h"
 #import "AFNetworking.h"
 #import "GDataXMLNode.h"
+#import "MarqueeLabel.h"
+
 @interface CLFieldViewController ()
 
 @property (nonatomic, strong)  UIWebView *webView;
@@ -19,7 +21,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    MarqueeLabel *label = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, self.view.width-100,44)];
+    label.tag = 101;
+    label.text = self.title;
+    label.textColor = [UIColor whiteColor];
+    label.marqueeType = MLContinuous;
+    label.scrollDuration = 15.0;
+    label.animationCurve = UIViewAnimationOptionCurveEaseInOut;
+    label.fadeLength = 10.0f;
+    label.leadingBuffer = 30.0f;
+    label.trailingBuffer = 20.0f;
+    self.navigationItem.titleView = label;
+
     CGFloat screemHeight = kScreenHeight;
     CGFloat navHeight = kNavHeight;
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, screemHeight - navHeight)];

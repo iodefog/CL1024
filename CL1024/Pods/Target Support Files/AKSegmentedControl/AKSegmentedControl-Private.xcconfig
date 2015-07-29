@@ -1,5 +1,5 @@
 #include "AKSegmentedControl.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/AKSegmentedControl" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/AKSegmentedControl" "${PODS_ROOT}/Headers/Public/BFUIViewAdditions" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/GDataXML-HTML" "${PODS_ROOT}/Headers/Public/MBProgressHUD" "${PODS_ROOT}/Headers/Public/MJRefresh" "${PODS_ROOT}/Headers/Public/NSObject+HLPropertyListing" "${PODS_ROOT}/Headers/Public/RTLabel" "${PODS_ROOT}/Headers/Public/SKSlideViewController"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/AKSegmentedControl" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/AKSegmentedControl" "${PODS_ROOT}/Headers/Public/BFUIViewAdditions" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/GDataXML-HTML" "${PODS_ROOT}/Headers/Public/MBProgressHUD" "${PODS_ROOT}/Headers/Public/MJRefresh" "${PODS_ROOT}/Headers/Public/MarqueeLabel" "${PODS_ROOT}/Headers/Public/NSObject+HLPropertyListing" "${PODS_ROOT}/Headers/Public/RTLabel" "${PODS_ROOT}/Headers/Public/SKSlideViewController"
 PODS_ROOT = ${SRCROOT}
 SKIP_INSTALL = YES

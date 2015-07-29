@@ -23,7 +23,7 @@
 
     [self instanceData];
     [self createUI];
-    
+    self.navigationItem.leftBarButtonItem = nil;
 }
 
 - (void)instanceData{

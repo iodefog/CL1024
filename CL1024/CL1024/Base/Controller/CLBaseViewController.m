@@ -64,12 +64,12 @@
     UIButton *itemButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [itemButton setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
     itemButton.showsTouchWhenHighlighted = YES;
-    itemButton.frame = CGRectMake(0, 0, 64, 44);
+    itemButton.frame = CGRectMake(0, 0, 44, 44);
     if (IOS7) {
         if (left) {
-            [itemButton setImageEdgeInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
+            [itemButton setImageEdgeInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
         }else {
-            [itemButton setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+            [itemButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
         }
     }
 
