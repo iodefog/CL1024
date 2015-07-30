@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 com.lhl.cl. All rights reserved.
 //
 
-#import "CLAPIViewController.h"
+#import "CLTableAPIViewController.h"
 
-@interface CLFieldListViewController : CLAPIViewController
+@interface CLFieldListViewController : CLTableAPIViewController
 
 @end

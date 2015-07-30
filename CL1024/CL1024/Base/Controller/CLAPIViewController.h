@@ -13,8 +13,10 @@
 
 @property (nonatomic, strong) NSString          *url;
 @property (nonatomic, strong) NSMutableArray    *model;
+@property (nonatomic, assign) NSInteger         pageIndex;
 
-- (void)requestMain;
+
+- (void)requestMainWithPageIndex:(NSInteger)pageIndex Success:(void(^)(BOOL Success, NSArray *newData))success;
 
 - (void)reloadResponseData;
 

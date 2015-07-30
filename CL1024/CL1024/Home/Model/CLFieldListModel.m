@@ -26,17 +26,16 @@
     NSString *str = [[NSString alloc] initWithData:data encoding:enc];
     NSError *error = nil;
     GDataXMLDocument *html = [[GDataXMLDocument alloc] initWithHTMLString:str error:&error];
-    NSLog(@"******* %@", error);
+    DLog(@"******* %@", error);
     GDataXMLNode *element = [[html rootElement] childAtIndex:2];
     GDataXMLNode *node = [element firstNodeForXPath:@"//*[@id=\"ajaxtable\"]/tbody[1]" error:&error];
-    NSLog(@"******* %@", error);
+    DLog(@"******* %@", error);
     NSMutableArray *modelsArray = [NSMutableArray array];
     for (int index = 0; index < node.childCount; index++) {
         CLFieldListModel *model = [[CLFieldListModel alloc] init];
         [model parseFieldListWithData:node index:index];
         if (model.title) {
             [modelsArray addObject:model];
-            [CLFieldListModel insertIntoDataSourceModel:model];
         }
     }
     return modelsArray;
@@ -73,9 +72,9 @@
         DLog(@"Error:%@",error);
     }
     DLog(@"The count of entry: %li",[mutableFetchResult count]);
-    for (CLFieldListModel* user in mutableFetchResult) {
-        DLog(@"%@",user.properties_aps);
-    }
+//    for (CLFieldListModel* user in mutableFetchResult) {
+//        DLog(@"%@",user.properties_aps);
+//    }
     return mutableFetchResult;
 }
 
@@ -116,15 +115,15 @@
     NSError* error=nil;
     NSMutableArray* mutableFetchResult=[[delegate.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
     if (mutableFetchResult==nil) {
-        NSLog(@"Error:%@",error);
+        DLog(@"Error:%@",error);
     }
-    NSLog(@"The count of entry: %li",[mutableFetchResult count]);
+    DLog(@"The count of entry: %li",[mutableFetchResult count]);
     for (CLFieldListModel* item in mutableFetchResult) {
         [delegate.managedObjectContext deleteObject:(id)item];
     }
     
     if ([delegate.managedObjectContext save:&error]) {
-        NSLog(@"Error:%@,%@",error,[error userInfo]);
+        DLog(@"Error:%@,%@",error,[error userInfo]);
     }
 }
 
@@ -142,12 +141,12 @@
     }
     DLog(@"The count of entry: %li",[mutableFetchResult count]);
     for (CLFieldListModel* item in mutableFetchResult) {
-        DLog(@"%@",user.properties_aps);
+//        DLog(@"%@",user.properties_aps);
         [delegate.managedObjectContext deleteObject:(id)item];
     }
     
     if ([delegate.managedObjectContext save:&error]) {
-        NSLog(@"Error:%@,%@",error,[error userInfo]);
+        DLog(@"Error:%@,%@",error,[error userInfo]);
     }
 }
 

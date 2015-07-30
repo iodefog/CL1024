@@ -22,19 +22,30 @@
 
 }
 
-- (void)requestMain{
-    NSString *newUrl = [NSString stringWithFormat:@"%@&search=&page=1",self.url];
+- (void)requestMainWithPageIndex:(NSInteger)pageIndex Success:(void (^)(BOOL success, NSArray *newData))success{
+    NSString *newUrl = [NSString stringWithFormat:@"%@&search=&page=%ld",self.url,pageIndex];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:newUrl]];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.model = [CLFieldListModel parseFieldListWithData:responseObject];
+        NSArray *items = [CLFieldListModel parseFieldListWithData:responseObject];
+        self.model = (id)items;
+        success(YES,items);
+
+        if (pageIndex==1) {
+            [CLFieldListModel DeleteAllModelFromManagedObjectContextModel];
+            
+            [items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [CLFieldListModel insertIntoDataSourceModel:obj];
+            }];
+        }
         [self reloadResponseData];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        success(NO, self.model);
     }];
     NSOperationQueue *queue = [NSOperationQueue mainQueue];
     [queue addOperation:operation];
     
 }
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "CLFieldViewController.h"
+#import "CLBottomView.h"
 #import "AFNetworking.h"
 #import "GDataXMLNode.h"
 #import "MarqueeLabel.h"
@@ -14,37 +15,23 @@
 @interface CLFieldViewController ()
 
 @property (nonatomic, strong)  UIWebView *webView;
-
+@property (nonatomic, strong)  CLBottomView *bottomView;
 @end
 
 @implementation CLFieldViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    MarqueeLabel *label = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, self.view.width-100,44)];
-    label.tag = 101;
-    label.text = self.title;
-    label.textColor = [UIColor whiteColor];
-    label.marqueeType = MLContinuous;
-    label.scrollDuration = 15.0;
-    label.animationCurve = UIViewAnimationOptionCurveEaseInOut;
-    label.fadeLength = 10.0f;
-    label.leadingBuffer = 30.0f;
-    label.trailingBuffer = 20.0f;
-    self.navigationItem.titleView = label;
-
-    CGFloat screemHeight = kScreenHeight;
-    CGFloat navHeight = kNavHeight;
-    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, screemHeight - navHeight)];
-    self.webView.delegate = self;
-    self.webView.scalesPageToFit = YES;
+ 
+    self.navigationItem.titleView = self.marqueeLabel;
     [self.view addSubview:self.webView];
+    self.bottomView = [[CLBottomView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 45)];
+    [self.view addSubview:self.bottomView];
+    [self layoutSubViews];
     
-    __block __weak CLFieldViewController *mySelf = self;
-    
+    __block typeof(self) mySelf = self;
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
         NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
         NSString *str = [[NSString alloc] initWithData:responseObject encoding:enc];
         NSError *error = nil;
@@ -61,27 +48,21 @@
          "</head> \n"
          "<body>%@</body> \n"
                         "</html>", @"宋体", 18.,[node XMLString]];
-        
         [mySelf.webView loadHTMLString:htmls baseURL:nil];
-    
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
     
     NSOperationQueue *queue = [NSOperationQueue mainQueue];
     [queue addOperation:operation];
-    
 }
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    
     self.webView.scalesPageToFit = NO;
 
-    
     NSString *str = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '80%'";
     [webView stringByEvaluatingJavaScriptFromString:str];
-    
     //拦截网页图片  并修改图片大小
     NSString *script = [NSString stringWithFormat: @"var script = document.createElement('script');"
                         "script.type = 'text/javascript';"
@@ -103,6 +84,38 @@
     [webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
 
 //    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
+}
+
+
+- (void)layoutSubViews{
+    [super layoutSubViews];
+    CGFloat screemHeight = kScreenHeight;
+    CGFloat navHeight = kNavHeight;
+    self.webView.frame = CGRectMake(0, 0, self.view.width, screemHeight - navHeight);
+    self.bottomView.bottom = self.webView.height;
+}
+
+- (MarqueeLabel *)marqueeLabel{
+    MarqueeLabel *label = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, self.view.width-100,44)];
+    label.tag = 101;
+    label.text = self.title;
+    label.textColor = [UIColor whiteColor];
+    label.marqueeType = MLContinuous;
+    label.scrollDuration = 15.0;
+    label.animationCurve = UIViewAnimationOptionCurveEaseInOut;
+    label.fadeLength = 10.0f;
+    label.leadingBuffer = 30.0f;
+    label.trailingBuffer = 20.0f;
+    return label;
+}
+
+- (UIWebView *)webView{
+    if (!_webView) {
+        _webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+        _webView.delegate = self;
+        _webView.scalesPageToFit = YES;
+    }
+    return _webView;
 }
 
 - (void)didReceiveMemoryWarning {
