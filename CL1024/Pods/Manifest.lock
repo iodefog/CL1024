@@ -28,6 +28,7 @@ PODS:
   - FMDB/standard (2.5):
     - FMDB/common
   - GDataXML-HTML (1.2.0)
+  - IMYWebView (0.3)
   - MarqueeLabel (2.2.5)
   - MBProgressHUD (0.9.1)
   - MJRefresh (2.3.2)
@@ -41,6 +42,7 @@ DEPENDENCIES:
   - BFUIViewAdditions (~> 0.1.0)
   - FMDB (~> 2.5)
   - GDataXML-HTML (~> 1.2.0)
+  - IMYWebView (~> 0.3)
   - MarqueeLabel (~> 2.2.5)
   - MBProgressHUD (~> 0.9.1)
   - MJRefresh (~> 2.3.2)
@@ -54,6 +56,7 @@ SPEC CHECKSUMS:
   BFUIViewAdditions: 2047778bb98b19d9df4643f85cffb194e19079f3
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   GDataXML-HTML: dac3692417e9fc612f8e12d8baae3706fccedcc8
+  IMYWebView: f279bd15a330378514068b536e08ef1f9704123c
   MarqueeLabel: 65ca60ee9ba554be34f35339004c6c9fe6366a31
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MJRefresh: 0f6f5e8387970607c26080b44058b229a23065d7

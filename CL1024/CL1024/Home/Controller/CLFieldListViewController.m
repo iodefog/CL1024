@@ -32,7 +32,7 @@
     
     [self layoutSubViews];
     
-    self.model = [CLFieldListModel queryFromManagedObjectContext];
+    self.model = [CLCoreDataManager queryFromManagedObjectContextWithEntityName:self.entityName];
     [self.tableView reloadData];
     
     __block typeof(self) mySelf = self;
@@ -67,8 +67,8 @@
     self.tableView.frame = self.view.bounds;
     CGFloat screenHeight = kScreenHeight;
     CGFloat navHeight = kNavHeight;
-    self.tableView.height = screenHeight - navHeight;
-    self.bottomView.bottom = self.tableView.bottom;
+    self.tableView.height = screenHeight - navHeight-self.bottomView.height;
+    self.bottomView.top = self.tableView.bottom;
 }
 
 - (void)reloadResponseData{
@@ -133,5 +133,52 @@
     return _tableView;
 }
 
+- (NSString *)entityName{
+    NSString *entityName = nil;
+    switch (self.modelType) {
+        case kWuMaZhuanQu:
+            entityName = @"WuMaZhuanQu";
+            break;
+        case kYouMaZhuanQu:
+            entityName = @"YouMaZhuanQu";
+            break;
+        case kOuMeiZhuanQu:
+            entityName = @"OuMeiZhuanQu";
+            break;
+        case kDongManZhuanQu:
+            entityName = @"DongManZhuanQu";
+            break;
+        case kHTTPDownLoad:
+            entityName = @"HTTPDownLoad";
+            break;
+        case kOnlineMovie:
+            entityName = @"OnlineMovie";
+            break;
+        case kMovieField:
+            entityName = @"MovieField";
+            break;
+            
+        case kTechComment:
+            entityName = @"TechComment";
+            break;
+        case kNewUs:
+            entityName = @"NewUs";
+            break;
+        case kOurFlag:
+            entityName = @"OurFlag";
+            break;
+        case kTextQu:
+            entityName = @"TextQu";
+            break;
+        case kCLZixun:
+            entityName = @"CLZixun";
+            break;
+            
+        default:
+            break;
+    }
+    return entityName;
+    
+}
 
 @end

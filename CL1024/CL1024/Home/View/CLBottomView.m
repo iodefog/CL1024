@@ -31,7 +31,7 @@
 
 - (void)createUI{
     
-    UIView *sperateLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 2)];
+    UIView *sperateLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1)];
     sperateLine.backgroundColor = UIColorFromRGB(0x16656c);
     [self addSubview:sperateLine];
     

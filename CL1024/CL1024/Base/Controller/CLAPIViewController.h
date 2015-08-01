@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "CLBaseViewController.h"
 #import "SKSlideViewController.h"
+#import "CLCoreDataManager.h"
 @interface CLAPIViewController : CLBaseViewController<UIWebViewDelegate>
 
 @property (nonatomic, strong) NSString          *url;
 @property (nonatomic, strong) NSMutableArray    *model;
 @property (nonatomic, assign) NSInteger         pageIndex;
 
+- (NSString *)entityName;
 
 - (void)requestMainWithPageIndex:(NSInteger)pageIndex Success:(void(^)(BOOL Success, NSArray *newData))success;
 

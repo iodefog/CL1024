@@ -10,6 +10,20 @@
 
 @implementation CLPersonViewController
 
+- (void)viewDidAppear:(BOOL)animated;{
+    [super viewDidAppear:animated];
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.IIVDC setSlidesOnPanGesture:YES];
+}
+
+- (void)viewDidDisappear:(BOOL)animated;{
+    [super viewDidDisappear:animated];
+    
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.IIVDC setSlidesOnPanGesture:NO];
+}
+
+
 - (void)viewDidLoad{
     [super viewDidLoad];
     
@@ -17,5 +31,7 @@
     self.view.backgroundColor = [UIColor yellowColor];
     self.navigationItem.leftBarButtonItem = nil;
 }
+
+
 
 @end

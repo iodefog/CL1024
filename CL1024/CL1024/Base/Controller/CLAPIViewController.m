@@ -32,10 +32,10 @@
         success(YES,items);
 
         if (pageIndex==1) {
-            [CLFieldListModel DeleteAllModelFromManagedObjectContextModel];
+            [CLCoreDataManager DeleteAllModelFromManagedObjectContextModelWithEntityName:self.entityName];
             
             [items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                [CLFieldListModel insertIntoDataSourceModel:obj];
+                [CLCoreDataManager insertIntoDataSourceModel:obj entityName:self.entityName];
             }];
         }
         [self reloadResponseData];
@@ -46,6 +46,10 @@
     NSOperationQueue *queue = [NSOperationQueue mainQueue];
     [queue addOperation:operation];
     
+}
+
+- (NSString *)entityName{
+  return   @"";
 }
 
 @end

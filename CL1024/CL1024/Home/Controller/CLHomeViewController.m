@@ -11,7 +11,9 @@
 #import "CLHomeTableCell.h"
 #import "CLFieldListViewController.h"
 
-@interface CLHomeViewController() <UITableViewDataSource, UITableViewDelegate>
+#import "CLFieldViewController.h"
+
+@interface CLHomeViewController() <UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) AKSegmentedControl    *segmentedControl;
 @property (nonatomic, strong) UIButton              *headButton;
@@ -20,6 +22,8 @@
 @property (nonatomic, strong) UITableView           *clMoveTableView;
 @property (nonatomic, strong) NSArray               *clRestArray;
 @property (nonatomic, strong) NSArray               *clMoveArray;
+
+@property(nonatomic,weak) UIViewController          *currentShowVC;
 
 
 @end
@@ -37,11 +41,30 @@
     self.clMoveTableView.left = self.clRestTableView.right;
 }
 
+- (void)viewDidAppear:(BOOL)animated;{
+    [super viewDidAppear:animated];
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.IIVDC setSlidesOnPanGesture:YES];
+}
+
+- (void)viewDidDisappear:(BOOL)animated;{
+    [super viewDidDisappear:animated];
+    
+   AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.IIVDC setSlidesOnPanGesture:NO];
+}
+
 - (void)viewDidLoad{
     [super viewDidLoad];
     
     self.title  = @"草榴社区";
     self.view.backgroundColor = UIColorFromRGB(0xf9f9ed);
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
+    self.navigationController.delegate = self;
+    self.navigationController.interactivePopGestureRecognizer.delegate =(id)self;
+
     self.navigationItem.leftBarButtonItem = [self createButtonWithImage:@"icon_main_setting" SEL:@selector(clickedSetting:) left:YES];
     self.navigationItem.rightBarButtonItem = [self createButtonWithImage:@"icon_main_person" SEL:@selector(clickedPerson:) left:NO];
     
@@ -95,6 +118,7 @@
 - (void)pushToFieldListVCWithUrl:(CLHomeModel *)model{
     CLFieldListViewController *fieldListVC = [[CLFieldListViewController alloc] init];
     fieldListVC.url = model.url;
+    fieldListVC.modelType = model.modelType;
     fieldListVC.title = model.titleText;
     [self.navigationController pushViewController:fieldListVC animated:YES];
 }
@@ -144,7 +168,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    CLFieldViewController *filedVC = [[CLFieldViewController alloc] init];
+    [self.navigationController pushViewController:filedVC animated:YES];
     
+    return;
     CLHomeModel *model = nil;
     if(tableView == self.clMoveTableView){
         model = self.clMoveArray[indexPath.section];
@@ -165,6 +192,20 @@
         }
     }
 }
+
+#pragma mark - 
+
+-(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+}
+-(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if (navigationController.viewControllers.count == 1)
+        self.currentShowVC = Nil;
+    else
+        self.currentShowVC = viewController;
+}
+
 
 #pragma mark - 
 
@@ -226,6 +267,7 @@
         _tableContentView.pagingEnabled = YES;
         _tableContentView.bounces =  NO;
         _tableContentView.delegate = self;
+
     }
     return _tableContentView;
 }

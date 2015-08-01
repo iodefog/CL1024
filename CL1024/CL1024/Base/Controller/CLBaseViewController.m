@@ -24,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav_bg_ios6"]];
     self.navigationItem.leftBarButtonItem = [self createButtonWithImage:@"navi_back_arrows" SEL:@selector(popToBack:) left:YES];
 }
 

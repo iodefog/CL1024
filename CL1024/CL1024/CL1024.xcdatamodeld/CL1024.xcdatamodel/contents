@@ -1,6 +1,83 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14E46" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="FieldList" syncable="YES">
+    <entity name="CLZixun" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleStr" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="DongManZhuanQu" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleStr" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="HTTPDownLoad" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleStr" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="MovieField" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleStr" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="NewUs" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleStr" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="OnlineMovie" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleStr" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="OuMeiZhuanQu" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleStr" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="OurFlag" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleStr" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TechComment" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleStr" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TextQu" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleStr" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="WuMaZhuanQu" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleStr" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="YouMaZhuanQu" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="commentCount" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
@@ -8,6 +85,17 @@
         <attribute name="titleStr" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FieldList" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="TechComment" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="MovieField" positionX="-54" positionY="27" width="128" height="120"/>
+        <element name="OnlineMovie" positionX="-36" positionY="36" width="128" height="120"/>
+        <element name="HTTPDownLoad" positionX="-18" positionY="45" width="128" height="120"/>
+        <element name="DongManZhuanQu" positionX="0" positionY="54" width="128" height="120"/>
+        <element name="OuMeiZhuanQu" positionX="18" positionY="63" width="128" height="120"/>
+        <element name="YouMaZhuanQu" positionX="36" positionY="81" width="128" height="120"/>
+        <element name="WuMaZhuanQu" positionX="-9" positionY="36" width="128" height="120"/>
+        <element name="CLZixun" positionX="0" positionY="45" width="128" height="120"/>
+        <element name="TextQu" positionX="9" positionY="54" width="128" height="120"/>
+        <element name="OurFlag" positionX="18" positionY="63" width="128" height="120"/>
+        <element name="NewUs" positionX="27" positionY="72" width="128" height="120"/>
     </elements>
 </model>

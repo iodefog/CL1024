@@ -7,7 +7,10 @@
 //
 
 #import "CLTableAPIViewController.h"
+#import "CLHomeModel.h"
 
 @interface CLFieldListViewController : CLTableAPIViewController
+
+@property (nonatomic, assign) KModelType  modelType;
 
 @end

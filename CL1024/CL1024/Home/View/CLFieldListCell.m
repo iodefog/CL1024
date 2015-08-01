@@ -48,7 +48,7 @@
     self.authorLabel.text = item.author;
     self.timeLabel.text = item.time;
     self.commentCountLabel.text = item.commentCount;
-    self.haveReadLabel.hidden = NO;
+    self.haveReadLabel.hidden = YES;
 }
 
 - (void)giveValueToUrl{

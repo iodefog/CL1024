@@ -11,10 +11,10 @@
 #import "AFNetworking.h"
 #import "GDataXMLNode.h"
 #import "MarqueeLabel.h"
-
+#import "CLCustomWebView.h"
 @interface CLFieldViewController ()
 
-@property (nonatomic, strong)  UIWebView *webView;
+@property (nonatomic, strong)  CLCustomWebView *webView;
 @property (nonatomic, strong)  CLBottomView *bottomView;
 @end
 
@@ -28,7 +28,8 @@
     self.bottomView = [[CLBottomView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 45)];
     [self.view addSubview:self.bottomView];
     [self layoutSubViews];
-    
+//    self.url = @"http://cc.bearhk.info/htm_data/7/1508/1582197.html";
+    self.url = @"http://cc.bearhk.info/htm_data/7/1507/1578395.html";
     __block typeof(self) mySelf = self;
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -49,6 +50,7 @@
          "<body>%@</body> \n"
                         "</html>", @"宋体", 18.,[node XMLString]];
         [mySelf.webView loadHTMLString:htmls baseURL:nil];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
@@ -59,10 +61,7 @@
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    self.webView.scalesPageToFit = NO;
-
-    NSString *str = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '80%'";
-    [webView stringByEvaluatingJavaScriptFromString:str];
+    
     //拦截网页图片  并修改图片大小
     NSString *script = [NSString stringWithFormat: @"var script = document.createElement('script');"
                         "script.type = 'text/javascript';"
@@ -74,16 +73,18 @@
                         "if(myimg.width > maxwidth){"
                         "oldwidth = myimg.width;"
                         "myimg.width = maxwidth;"
-                        "myimg.height = myimg.height * (maxwidth/oldwidth);"
+                        "myimg.height = myimg.height*maxwidth/oldwidth+20;"
                         "}"
                         "}"
                         "}\";"
-                        "document.getElementsByTagName('head')[0].appendChild(script);",self.view.width-20];
+                        "document.getElementsByTagName('head')[0].appendChild(script);",self.view.width];
     
     [webView stringByEvaluatingJavaScriptFromString:script];
     [webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
 
-//    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
+    // 修改文字
+    NSString *meta = [NSString stringWithFormat:@"document.getElementsByName(\"viewport\")[0].content = \"width=%@, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes\"",@(self.view.width)];
+    [webView stringByEvaluatingJavaScriptFromString:meta];//(initial-scale是初始缩放比,minimum-scale=1.0最小缩放比,maximum-scale=5.0最大缩放比,user-scalable=yes是否支持缩放)
 }
 
 
@@ -91,8 +92,8 @@
     [super layoutSubViews];
     CGFloat screemHeight = kScreenHeight;
     CGFloat navHeight = kNavHeight;
-    self.webView.frame = CGRectMake(0, 0, self.view.width, screemHeight - navHeight);
-    self.bottomView.bottom = self.webView.height;
+    self.webView.frame = CGRectMake(10, 0, self.view.width-20, screemHeight - navHeight-self.bottomView.height);
+    self.bottomView.top = self.webView.bottom;
 }
 
 - (MarqueeLabel *)marqueeLabel{
@@ -109,13 +110,18 @@
     return label;
 }
 
-- (UIWebView *)webView{
+- (CLCustomWebView *)webView{
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+        _webView = [[CLCustomWebView alloc] initWithFrame:CGRectZero];
         _webView.delegate = self;
-        _webView.scalesPageToFit = YES;
+        _webView.scalesPageToFit = NO;
     }
     return _webView;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.x > 0)
+        scrollView.contentOffset = CGPointMake(0, scrollView.contentOffset.y);
 }
 
 - (void)didReceiveMemoryWarning {

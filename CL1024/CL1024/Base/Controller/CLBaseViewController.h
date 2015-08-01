@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "AppDelegate.h"
 @interface CLBaseViewController : UIViewController
 
 - (void)clickedPerson:(UIBarButtonItem *)barItem;

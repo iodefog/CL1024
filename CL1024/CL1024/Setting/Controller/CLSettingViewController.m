@@ -18,9 +18,23 @@
 
 @implementation CLSettingViewController
 
+- (void)viewDidAppear:(BOOL)animated;{
+    [super viewDidAppear:animated];
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.IIVDC setSlidesOnPanGesture:YES];
+}
+
+- (void)viewDidDisappear:(BOOL)animated;{
+    [super viewDidDisappear:animated];
+    
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.IIVDC setSlidesOnPanGesture:NO];
+}
+
+
 - (void)viewDidLoad{
     [super viewDidLoad];
-
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav_bg_ios6"]];
     [self instanceData];
     [self createUI];
     self.navigationItem.leftBarButtonItem = nil;

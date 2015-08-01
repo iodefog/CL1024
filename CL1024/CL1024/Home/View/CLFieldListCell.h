@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CLFieldListModel.h"
-
+#import "CLCoreDataManager.h"
 @interface CLFieldListCell : UITableViewCell
 
 @property (nonatomic, strong) NSString *url;
