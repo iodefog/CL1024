@@ -57,4 +57,10 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.pageTableBlock) {
+        self.pageTableBlock(indexPath);
+    }
+}
+
 @end

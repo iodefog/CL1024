@@ -21,6 +21,7 @@
 
 @property (nonatomic, strong) PopoverView   *selectedFieldPopoverView;
 @property (nonatomic, strong) PopoverView   *pagesPopoverView;
+@property (nonatomic, strong) CLPageTableView   *pageTableView;
 @property (nonatomic, strong) NSArray       *selectedFieldArray;
 
 @end;
@@ -101,9 +102,11 @@
         case 1005:
         {
             CGPoint point = CGPointMake(sender.width/2, sender.top-15);
-            CLPageTableView *pageView = [[CLPageTableView alloc] initWithFrame:CGRectMake(0, 0, 100, 300)style:UITableViewStylePlain];
+            if (!self.pageTableView) {
+                self.pageTableView = [[CLPageTableView alloc] initWithFrame:CGRectMake(0, 0, 100, 300)style:UITableViewStylePlain];
+            }
             self.selectedFieldPopoverView =
-            [PopoverView showPopoverAtPoint:point inView:sender withContentView:pageView delegate:self];
+            [PopoverView showPopoverAtPoint:point inView:sender withContentView:self.pageTableView delegate:self];
             break;
         }
             

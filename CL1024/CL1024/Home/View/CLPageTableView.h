@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^CLPageTableBlock)(NSIndexPath *indexPath);
+
 @interface CLPageTableView : UITableView<UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, weak) CLPageTableBlock pageTableBlock;
 
 @end
