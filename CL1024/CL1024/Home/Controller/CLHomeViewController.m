@@ -10,8 +10,7 @@
 #import "AKSegmentedControl.h"
 #import "CLHomeTableCell.h"
 #import "CLFieldListViewController.h"
-
-#import "CLFieldViewController.h"
+#import "CLBottomView.h"
 
 @interface CLHomeViewController() <UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate>
 
@@ -25,6 +24,7 @@
 
 @property(nonatomic,weak) UIViewController          *currentShowVC;
 
+@property (nonatomic, strong) CLBottomView          *bottomView;
 
 @end
 
@@ -39,6 +39,7 @@
     self.clRestTableView.frame = self.tableContentView.bounds;
     self.clMoveTableView.frame = self.tableContentView.bounds;
     self.clMoveTableView.left = self.clRestTableView.right;
+    self.bottomView.bottom = self.tableContentView.bottom;
 }
 
 - (void)viewDidAppear:(BOOL)animated;{
@@ -75,6 +76,10 @@
     [self.view addSubview:self.tableContentView];
     [self.tableContentView addSubview:self.clRestTableView];
     [self.tableContentView addSubview:self.clMoveTableView];
+    
+    self.bottomView = [[CLBottomView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 45)];
+    [self.view addSubview:self.bottomView];
+
     
     [self layoutSubViews];
 }
@@ -168,10 +173,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    CLFieldViewController *filedVC = [[CLFieldViewController alloc] init];
-    [self.navigationController pushViewController:filedVC animated:YES];
-    
-    return;
     CLHomeModel *model = nil;
     if(tableView == self.clMoveTableView){
         model = self.clMoveArray[indexPath.section];

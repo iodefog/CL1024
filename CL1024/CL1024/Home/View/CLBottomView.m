@@ -7,15 +7,21 @@
 //
 
 #import "CLBottomView.h"
+#import "PopoverView.h"
+#import "CLPageTableView.h"
 
-@interface CLBottomView()
+@interface CLBottomView()<PopoverViewDelegate>
 
-@property (nonatomic, strong) UIButton *selectFieldButton;
-@property (nonatomic, strong) UIButton *seeCacheButton;
-@property (nonatomic, strong) UIButton *reloadFirstButton;
-@property (nonatomic, strong) UIButton *prePageButton;
-@property (nonatomic, strong) UITextField *selectPageField;
-@property (nonatomic, strong) UIButton *behindPageButton;
+@property (nonatomic, strong) UIButton      *selectFieldButton;
+@property (nonatomic, strong) UIButton      *seeCacheButton;
+@property (nonatomic, strong) UIButton      *reloadFirstButton;
+@property (nonatomic, strong) UIButton      *prePageButton;
+@property (nonatomic, strong) UIButton   *selectPageField;
+@property (nonatomic, strong) UIButton      *behindPageButton;
+
+@property (nonatomic, strong) PopoverView   *selectedFieldPopoverView;
+@property (nonatomic, strong) PopoverView   *pagesPopoverView;
+@property (nonatomic, strong) NSArray       *selectedFieldArray;
 
 @end;
 
@@ -31,10 +37,17 @@
 
 - (void)createUI{
     
+    self.selectedFieldArray = @[@"浏览全部帖子",
+                                @"只看精华帖子",
+                                @"一天内的帖子",
+                                @"一周内的帖子",
+                                @"一月内的帖子",
+                                @"一年内的帖子"];
+    
+  
     UIView *sperateLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1)];
     sperateLine.backgroundColor = UIColorFromRGB(0x16656c);
     [self addSubview:sperateLine];
-    
     [self addSubview:self.selectFieldButton];
     [self addSubview:self.seeCacheButton];
     [self addSubview:self.reloadFirstButton];
@@ -55,61 +68,106 @@
     self.behindPageButton.left = 20+6*width;
     self.behindPageButton.width = 20;
 }
+#pragma mark - Custom Method
+
+- (void)buttonClicked:(UIButton *)sender{
+    switch (sender.tag) {
+        case 1000:
+        {
+            CGPoint point = CGPointMake(sender.width/2, sender.top);
+            self.selectedFieldPopoverView = [PopoverView showPopoverAtPoint:point inView:sender withStringArray:self.selectedFieldArray delegate:self];
+            break;
+        }
+        case 1001:
+        {
+            
+            break;
+        }
+        case 1002:
+        {
+            
+            break;
+        }
+        case 1003:
+        {
+            
+            break;
+        }
+        case 1004:
+        {
+            
+            break;
+        }
+        case 1005:
+        {
+            CGPoint point = CGPointMake(sender.width/2, sender.top-15);
+            CLPageTableView *pageView = [[CLPageTableView alloc] initWithFrame:CGRectMake(0, 0, 100, 300)style:UITableViewStylePlain];
+            self.selectedFieldPopoverView =
+            [PopoverView showPopoverAtPoint:point inView:sender withContentView:pageView delegate:self];
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark -- create View
 
 - (UIButton *)selectFieldButton{
     if (!_selectFieldButton) {
-        _selectFieldButton = [self createButtonWithImage:@"p_post_filter"];
+        _selectFieldButton = [self createButtonWithImage:@"p_post_filter" tag:1000];
     }
     return _selectFieldButton;
 }
 
 - (UIButton *)seeCacheButton{
     if (!_seeCacheButton) {
-        _seeCacheButton = [self createButtonWithImage:@"p_post_switch"];
+        _seeCacheButton = [self createButtonWithImage:@"p_post_switch" tag:1001];
     }
     return _seeCacheButton;
 }
 
 - (UIButton *)reloadFirstButton{
     if (!_reloadFirstButton) {
-        _reloadFirstButton = [self createButtonWithImage:@"p_refresh"];
+        _reloadFirstButton = [self createButtonWithImage:@"p_refresh" tag:1002];
     }
     return _reloadFirstButton;
 }
 
 - (UIButton *)prePageButton{
     if (!_prePageButton) {
-        _prePageButton = [self createButtonWithImage:@"p_left_black_arrows"];
+        _prePageButton = [self createButtonWithImage:@"p_left_black_arrows" tag:1003];
     }
     return _prePageButton;
 }
 
 - (UIButton *)behindPageButton{
     if (!_behindPageButton) {
-        _behindPageButton = [self createButtonWithImage:@"p_right_black_arrows"];;
+        _behindPageButton = [self createButtonWithImage:@"p_right_black_arrows" tag:1004];;
     }
     return _behindPageButton;
 }
 
-- (UITextField *)selectPageField{
+- (UIButton *)selectPageField{
     if (!_selectPageField) {
-        _selectPageField = [[UITextField alloc] initWithFrame:CGRectMake(0, 8, 90, 30)];
-        _selectPageField.backgroundColor = [UIColor whiteColor];
-        _selectPageField.enabled = NO;
-        _selectPageField.textColor = UIColorFromRGB(0xafafaf);
+        _selectPageField = [self createButtonWithImage:@"" tag:1005];
+        _selectPageField.frame = CGRectMake(0, 8, 90, 30);
         _selectPageField.layer.borderColor = UIColorFromRGB(0xafafaf).CGColor;
         _selectPageField.layer.cornerRadius = 3;
         _selectPageField.layer.borderWidth = 1.f;
-        _selectPageField.text = @"1/100";
-        _selectPageField.textAlignment = NSTextAlignmentCenter;
+        [_selectPageField setTitleColor:UIColorFromRGB(0xafafaf) forState:UIControlStateNormal];
+        [_selectPageField setTitle:@"1/1" forState:UIControlStateNormal]; ;
     }
     return _selectPageField;
 }
 
 
-- (UIButton *)createButtonWithImage:(NSString *)image{
+- (UIButton *)createButtonWithImage:(NSString *)image tag:(NSInteger)tag{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.tag = tag;
     button.frame = CGRectMake(0, 0, 45, 45);
+    [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
     return button;
 }

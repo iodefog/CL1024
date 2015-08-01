@@ -32,6 +32,7 @@ PODS:
   - MBProgressHUD (0.9.1)
   - MJRefresh (2.3.2)
   - NSObject+HLPropertyListing (1.0.0)
+  - PopoverView (0.0.2)
   - RTLabel (1.0.1)
   - SKSlideViewController (0.0.1)
 
@@ -45,6 +46,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.9.1)
   - MJRefresh (~> 2.3.2)
   - NSObject+HLPropertyListing (~> 1.0.0)
+  - PopoverView (~> 0.0.2)
   - RTLabel (~> 1.0.1)
   - SKSlideViewController (~> 0.0.1)
 
@@ -58,6 +60,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MJRefresh: 0f6f5e8387970607c26080b44058b229a23065d7
   NSObject+HLPropertyListing: 49bcb827af789ebc4817c4922e466df29a07ef04
+  PopoverView: 62e83ffda75944d6cf2de9c6593489f3097dc1a3
   RTLabel: 6005d07fef57b101097c4271f804daae3110cbca
   SKSlideViewController: 9ecbbda4ded3d9ff1a3b17f0db73b28271e8a237
 

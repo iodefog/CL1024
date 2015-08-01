@@ -29,7 +29,7 @@
     [self.view addSubview:self.bottomView];
     [self layoutSubViews];
 //    self.url = @"http://cc.bearhk.info/htm_data/7/1508/1582197.html";
-    self.url = @"http://cc.bearhk.info/htm_data/7/1507/1578395.html";
+//    self.url = @"http://cc.bearhk.info/htm_data/7/1507/1578395.html";
     __block typeof(self) mySelf = self;
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
