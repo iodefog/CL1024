@@ -27,7 +27,16 @@
     
     self.pageIndex = 1;
     [self.view addSubview:self.tableView];
+    __block typeof(self) mySelf = self;
     self.bottomView = [[CLBottomView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 45)];
+    self.bottomView.bottomBlock = ^(NSInteger index, CLBottomClickedType bottomType){
+        DLog(@"index = %@, buttomType = %@", @(index), @(bottomType));
+        if(index != self.pageIndex){
+            mySelf.pageIndex = index;
+            [mySelf requestFooter];
+        }
+    };
+
     [self.view addSubview:self.bottomView];
     
     [self layoutSubViews];
@@ -35,7 +44,6 @@
     self.model = [CLCoreDataManager queryFromManagedObjectContextWithEntityName:self.entityName];
     [self.tableView reloadData];
     
-    __block typeof(self) mySelf = self;
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
         if (mySelf.pageIndex > 1) {
@@ -48,17 +56,30 @@
 
 - (void)requestHeader{
     __block typeof(self) mySelf = self;
+    [mySelf showProgressHUD];
     [self requestMainWithPageIndex:self.pageIndex Success:^(BOOL Success,NSArray *newItems) {
         // 进入刷新状态后会自动调用这个block
         [mySelf.tableView.header endRefreshing];
+        if(mySelf.bottomView.pageCount == -1){
+            mySelf.bottomView.pageCount = self.pageCount;
+        }
+        if (mySelf.pageIndex >=1) {
+            mySelf.bottomView.pageCurrentIndex = mySelf.pageIndex;
+        }
+        [mySelf hideProgressHUD];
     }];
 }
 
 - (void)requestFooter{
     __block typeof(self) mySelf = self;
+    [mySelf showProgressHUD];
     [self requestMainWithPageIndex:self.pageIndex Success:^(BOOL Success,NSArray *newItems) {
         // 进入刷新状态后会自动调用这个block
         [mySelf.tableView.footer endRefreshing];
+        [mySelf hideProgressHUD];
+        if (mySelf.pageIndex < mySelf.bottomView.pageCount) {
+            mySelf.bottomView.pageCurrentIndex = mySelf.pageIndex;
+        }
     }];
 }
 
@@ -73,13 +94,14 @@
 
 - (void)reloadResponseData{
     [self.tableView reloadData];
-    [self.tableView scrollRectToVisible:CGRectMake(0, 0, self.tableView.width, self.tableView.height) animated:YES];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     __block typeof(self) mySelf = self;
     if (self.model.count > 10) {
         self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             // 进入刷新状态后会自动调用这个block
             mySelf.pageIndex++;
             [mySelf requestFooter];
+            mySelf.bottomView.pageCurrentIndex = mySelf.pageIndex;
         }];
     }
 }

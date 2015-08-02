@@ -29,6 +29,7 @@
     DLog(@"******* %@", error);
     GDataXMLNode *element = [[html rootElement] childAtIndex:2];
     GDataXMLNode *node = [element firstNodeForXPath:@"//*[@id=\"ajaxtable\"]/tbody[1]" error:&error];
+
     DLog(@"******* %@", error);
     NSMutableArray *modelsArray = [NSMutableArray array];
     for (int index = 0; index < node.childCount; index++) {
@@ -39,6 +40,19 @@
         }
     }
     return modelsArray;
+}
+
++ (NSInteger)parseFieldCountWithData:(NSData *)data{
+    //将gb2312转换为  utf8
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
+    NSString *str = [[NSString alloc] initWithData:data encoding:enc];
+    NSError *error = nil;
+    GDataXMLDocument *html = [[GDataXMLDocument alloc] initWithHTMLString:str error:&error];
+    DLog(@"******* %@", error);
+    GDataXMLNode *element = [[html rootElement] childAtIndex:2];
+    GDataXMLNode *node = [element firstNodeForXPath:@"//*[@id=\"main\"]/div[3]/table/tr/td[1]/div/a[5]" error:&error];
+    DLog(@"******* %@", error);
+    return [[node stringValue] integerValue];
 }
 
 @end

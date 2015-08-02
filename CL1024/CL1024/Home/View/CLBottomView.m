@@ -40,6 +40,8 @@
 }
 
 - (void)instancedData{
+    self.pageCurrentIndex = 1;
+    self.pageCount = -1;
     self.selectedFieldArray = @[@"浏览全部帖子",
                                 @"只看精华帖子",
                                 @"一天内的帖子",
@@ -106,7 +108,7 @@
         case 1001:
         {
             if(self.bottomBlock)
-            self.bottomBlock(0, CLSeeCache);
+            self.bottomBlock(1, CLSeeCache);
             break;
         }
         case 1002:
@@ -117,7 +119,7 @@
         }
         case 1003:
         {
-            if (self.pageCurrentIndex>=1) {
+            if (self.pageCurrentIndex>=2) {
                 self.pageCurrentIndex -- ;
                 if(self.bottomBlock)
                     self.bottomBlock(self.pageCurrentIndex, CLSelectPage);
@@ -126,9 +128,11 @@
         }
         case 1004:
         {
-            self.pageCurrentIndex ++ ;
-            if(self.bottomBlock)
-            self.bottomBlock(self.pageCurrentIndex, CLSelectPage);
+            if(self.pageCurrentIndex < self.pageCount){
+                self.pageCurrentIndex ++ ;
+                if(self.bottomBlock)
+                self.bottomBlock(self.pageCurrentIndex, CLSelectPage);
+            }
             break;
         }
         case 1005:
@@ -139,7 +143,7 @@
                 self.pageTableView.pagesArray = self.pagesArray;
                 __block typeof(self) mySelf = self;
                 self.pageTableView.pageTableBlock = ^(NSIndexPath *indexPath){
-                    mySelf.pageCurrentIndex = indexPath.row;
+                    mySelf.pageCurrentIndex = indexPath.row+1;
                     if(mySelf.bottomBlock)
                     mySelf.bottomBlock(mySelf.pageCurrentIndex, CLSelectPage);
                     [mySelf.selectedFieldPopoverView dismiss:YES];
@@ -216,5 +220,14 @@
     return button;
 }
 
+- (void)setPageCurrentIndex:(NSInteger)pageCurrentIndex{
+    _pageCurrentIndex = pageCurrentIndex;
+    [self.selectPageField setTitle:[NSString stringWithFormat:@"%@/%@",@(_pageCurrentIndex),@(self.pageCount)] forState:UIControlStateNormal];
+}
+
+- (void)setPageCount:(NSInteger)pageCount{
+    _pageCount = pageCount;
+    [self.selectPageField setTitle:[NSString stringWithFormat:@"%@/%@",@(self.pageCurrentIndex),@(self.pageCount)] forState:UIControlStateNormal];
+}
 
 @end

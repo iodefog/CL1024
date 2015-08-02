@@ -14,45 +14,71 @@
 #import "CLCustomWebView.h"
 @interface CLFieldViewController ()
 
-@property (nonatomic, strong)  CLCustomWebView *webView;
-@property (nonatomic, strong)  CLBottomView *bottomView;
+@property (nonatomic, strong)  NSString         *tid;
+@property (nonatomic, strong)  CLCustomWebView  *webView;
+@property (nonatomic, strong)  CLBottomView     *bottomView;
 @end
 
 @implementation CLFieldViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
+    self.pageIndex = 1;
+    self.tid = [[[NSURL URLWithString:self.url] lastPathComponent] stringByDeletingPathExtension];
     self.navigationItem.titleView = self.marqueeLabel;
     [self.view addSubview:self.webView];
+    __block typeof(self) mySelf = self;
     self.bottomView = [[CLBottomView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 45)];
+    self.bottomView.bottomBlock = ^(NSInteger index, CLBottomClickedType bottomType){
+        DLog(@"index = %@, buttomType = %@", @(index), @(bottomType));
+        if(index != mySelf.pageIndex){
+            mySelf.pageIndex = index;
+            [mySelf reloadRequestData];
+        }
+        mySelf.pageIndex = index;
+
+    };
     [self.view addSubview:self.bottomView];
     [self layoutSubViews];
-//    self.url = @"http://cc.bearhk.info/htm_data/7/1508/1582197.html";
-//    self.url = @"http://cc.bearhk.info/htm_data/7/1507/1578395.html";
+
+    [self reloadRequestData];
+}
+
+- (void)reloadRequestData{
+    self.url = [NSString stringWithFormat:@"%@%@?tid=%@&page=%@",DefalutHost,@"read.php",self.tid,@(self.pageIndex)];
+    
+    [self showProgressHUD];
     __block typeof(self) mySelf = self;
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [mySelf hideProgressHUD];
         NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
         NSString *str = [[NSString alloc] initWithData:responseObject encoding:enc];
         NSError *error = nil;
         GDataXMLDocument *html = [[GDataXMLDocument alloc] initWithHTMLString:str error:&error];
-        NSLog(@"******* %@", error);
+        DLog(@"******* %@", error);
         GDataXMLNode *element = [[html rootElement] childAtIndex:2];
         GDataXMLNode *node = [element firstNodeForXPath:@"//*[@id=\"main\"]/div[4]/table/tr[1]/th[2]/table/tr/td/div[4]" error:&error];
+        DLog(@"******* %@", error);
+        mySelf.pageCount = [[[element firstNodeForXPath:@"//*[@id=\"main\"]/div[2]/table/tr/td[1]/div/a[5]" error:&error] stringValue] integerValue];
+        DLog(@"******* %@", error);
+        if (mySelf.bottomView.pageCount == -1) {
+            mySelf.bottomView.pageCount = mySelf.pageCount;
+        }
         
-       NSString *htmls = [NSString stringWithFormat:@"<html> \n"
-         "<head> \n"
-         "<style type=\"text/css\"> \n"
-         "body {font-family: \"%@\"; font-size: %f; }\n"
-         "</style> \n"
-         "</head> \n"
-         "<body>%@</body> \n"
-                        "</html>", @"宋体", 18.,[node XMLString]];
+        NSString *htmls = [NSString stringWithFormat:@"<html> \n"
+                           "<head> \n"
+                           "<style type=\"text/css\"> \n"
+                           "body {font-family: \"%@\"; font-size: %f; }\n"
+                           "</style> \n"
+                           "</head> \n"
+                           "<body>%@</body> \n"
+                           "</html>", @"宋体", 18.,[node XMLString]];
         [mySelf.webView loadHTMLString:htmls baseURL:nil];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+         [mySelf hideProgressHUD];
+        [mySelf showToastMessage:@"加载失败"];
     }];
     
     NSOperationQueue *queue = [NSOperationQueue mainQueue];

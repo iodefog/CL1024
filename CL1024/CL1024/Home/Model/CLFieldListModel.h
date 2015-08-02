@@ -18,4 +18,6 @@
 
 + (NSMutableArray *)parseFieldListWithData:(NSData *)data;
 
++ (NSInteger)parseFieldCountWithData:(NSData *)data;
+
 @end

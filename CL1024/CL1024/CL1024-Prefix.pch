@@ -13,6 +13,7 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 #import "DefaultDefine.h"
 #import "UIView+RMAdditions.h"
+#import "UIViewController+YCCommon.h"
 #import "NSObject+HLPropertyListing.h"
 
 #define DefalutHost @"http://cc.bearhk.info/"

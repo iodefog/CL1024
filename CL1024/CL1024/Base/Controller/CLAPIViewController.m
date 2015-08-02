@@ -25,20 +25,22 @@
 - (void)requestMainWithPageIndex:(NSInteger)pageIndex Success:(void (^)(BOOL success, NSArray *newData))success{
     NSString *newUrl = [NSString stringWithFormat:@"%@&search=&page=%ld",self.url,pageIndex];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:newUrl]];
+    __block typeof(self) mySelf = self;
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *items = [CLFieldListModel parseFieldListWithData:responseObject];
-        self.model = (id)items;
+        mySelf.pageCount = [CLFieldListModel parseFieldCountWithData:responseObject];
+        mySelf.model = (id)items;
         success(YES,items);
 
         if (pageIndex==1) {
             [CLCoreDataManager DeleteAllModelFromManagedObjectContextModelWithEntityName:self.entityName];
-            
             [items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 [CLCoreDataManager insertIntoDataSourceModel:obj entityName:self.entityName];
             }];
         }
-        [self reloadResponseData];
+        
+        [mySelf reloadResponseData];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         success(NO, self.model);

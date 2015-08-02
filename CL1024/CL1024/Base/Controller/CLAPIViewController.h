@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString          *url;
 @property (nonatomic, strong) NSMutableArray    *model;
 @property (nonatomic, assign) NSInteger         pageIndex;
+@property (nonatomic, assign) NSInteger         pageCount;
 
 - (NSString *)entityName;
 

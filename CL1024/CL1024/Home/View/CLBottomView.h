@@ -21,6 +21,7 @@ typedef void(^CLBottomViewBlock)(NSInteger index, CLBottomClickedType buttomType
 
 @interface CLBottomView : UIView
 
+@property (nonatomic, assign) NSInteger         pageCount;
 @property (nonatomic, assign) NSInteger         pageCurrentIndex;
 @property (nonatomic, strong) CLBottomViewBlock bottomBlock;
 
