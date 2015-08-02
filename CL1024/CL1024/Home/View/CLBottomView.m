@@ -16,13 +16,15 @@
 @property (nonatomic, strong) UIButton      *seeCacheButton;
 @property (nonatomic, strong) UIButton      *reloadFirstButton;
 @property (nonatomic, strong) UIButton      *prePageButton;
-@property (nonatomic, strong) UIButton   *selectPageField;
+@property (nonatomic, strong) UIButton      *selectPageField;
 @property (nonatomic, strong) UIButton      *behindPageButton;
 
 @property (nonatomic, strong) PopoverView   *selectedFieldPopoverView;
 @property (nonatomic, strong) PopoverView   *pagesPopoverView;
+@property (nonatomic, strong) CLPageTableView   *fieldTableView;
 @property (nonatomic, strong) CLPageTableView   *pageTableView;
 @property (nonatomic, strong) NSArray       *selectedFieldArray;
+@property (nonatomic, strong) NSMutableArray*pagesArray;
 
 @end;
 
@@ -31,13 +33,13 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
         self.backgroundColor = UIColorFromRGB(0xf9faec);
+        [self instancedData];
         [self createUI];
     }
     return self;
 }
 
-- (void)createUI{
-    
+- (void)instancedData{
     self.selectedFieldArray = @[@"浏览全部帖子",
                                 @"只看精华帖子",
                                 @"一天内的帖子",
@@ -45,7 +47,18 @@
                                 @"一月内的帖子",
                                 @"一年内的帖子"];
     
-  
+    self.pagesArray = [NSMutableArray array];
+    for (int i = 0; i < 200; i ++) {
+        NSString *title = [NSString stringWithFormat:@"查看第%@页",@(i)];
+        if (i == 0) {
+            title = @"当前页";
+        }
+        [self.pagesArray addObject:title];
+    }
+}
+
+- (void)createUI{
+    
     UIView *sperateLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1)];
     sperateLine.backgroundColor = UIColorFromRGB(0x16656c);
     [self addSubview:sperateLine];
@@ -76,34 +89,61 @@
         case 1000:
         {
             CGPoint point = CGPointMake(sender.width/2, sender.top);
-            self.selectedFieldPopoverView = [PopoverView showPopoverAtPoint:point inView:sender withStringArray:self.selectedFieldArray delegate:self];
+            if (!self.fieldTableView) {
+                self.fieldTableView = [[CLPageTableView alloc] initWithFrame:CGRectMake(0, 0, 120, 250)style:UITableViewStylePlain];
+                self.fieldTableView.pagesArray = (id)self.selectedFieldArray;
+                 __block typeof(self) mySelf = self;
+                self.fieldTableView.pageTableBlock = ^(NSIndexPath *indexPath){
+                    if(mySelf.bottomBlock)
+                    mySelf.bottomBlock(indexPath.row, CLSelectField);
+                    [mySelf.selectedFieldPopoverView dismiss:YES];
+                };
+            }
+            self.selectedFieldPopoverView =
+            [PopoverView showPopoverAtPoint:point inView:sender withContentView:self.fieldTableView delegate:self];
             break;
         }
         case 1001:
         {
-            
+            if(self.bottomBlock)
+            self.bottomBlock(0, CLSeeCache);
             break;
         }
         case 1002:
         {
-            
+            if(self.bottomBlock)
+            self.bottomBlock(self.pageCurrentIndex, CLReloadFirst);
             break;
         }
         case 1003:
         {
-            
+            if (self.pageCurrentIndex>=1) {
+                self.pageCurrentIndex -- ;
+                if(self.bottomBlock)
+                    self.bottomBlock(self.pageCurrentIndex, CLSelectPage);
+            }
             break;
         }
         case 1004:
         {
-            
+            self.pageCurrentIndex ++ ;
+            if(self.bottomBlock)
+            self.bottomBlock(self.pageCurrentIndex, CLSelectPage);
             break;
         }
         case 1005:
         {
-            CGPoint point = CGPointMake(sender.width/2, sender.top-15);
+            CGPoint point = CGPointMake(sender.width/2, sender.top-17);
             if (!self.pageTableView) {
-                self.pageTableView = [[CLPageTableView alloc] initWithFrame:CGRectMake(0, 0, 100, 300)style:UITableViewStylePlain];
+                self.pageTableView = [[CLPageTableView alloc] initWithFrame:CGRectMake(0, 0, 110, 250)style:UITableViewStylePlain];
+                self.pageTableView.pagesArray = self.pagesArray;
+                __block typeof(self) mySelf = self;
+                self.pageTableView.pageTableBlock = ^(NSIndexPath *indexPath){
+                    mySelf.pageCurrentIndex = indexPath.row;
+                    if(mySelf.bottomBlock)
+                    mySelf.bottomBlock(mySelf.pageCurrentIndex, CLSelectPage);
+                    [mySelf.selectedFieldPopoverView dismiss:YES];
+                };
             }
             self.selectedFieldPopoverView =
             [PopoverView showPopoverAtPoint:point inView:sender withContentView:self.pageTableView delegate:self];
@@ -114,6 +154,7 @@
             break;
     }
 }
+
 
 #pragma mark -- create View
 

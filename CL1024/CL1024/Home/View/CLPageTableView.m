@@ -10,7 +10,6 @@
 
 @interface CLPageTableView()
 
-@property (nonatomic, strong) NSMutableArray*pagesArray;
 
 @end
 
@@ -20,21 +19,10 @@
     if (self = [super initWithFrame:frame style:style]) {
         self.delegate = self;
         self.dataSource = self;
-        [self createUI];
     }
     return self;
 }
 
-- (void)createUI{
-    self.pagesArray = [NSMutableArray array];
-    for (int i = 0; i < 100; i ++) {
-        NSString *title = [NSString stringWithFormat:@"查看第%@页",@(i)];
-        if (i == 0) {
-            title = @"   当前页";
-        }
-        [self.pagesArray addObject:title];
-    }
-}
 
 #pragma mark - TableView Delgate
 
@@ -53,7 +41,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellName];
     }
     cell.textLabel.text = self.pagesArray[indexPath.row];
-    cell.textLabel.font = [UIFont systemFontOfSize:15];
+    cell.textLabel.textColor = UIColorFromRGB(0xafafaf);
+    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    cell.textLabel.font = [UIFont systemFontOfSize:14];
     return cell;
 }
 

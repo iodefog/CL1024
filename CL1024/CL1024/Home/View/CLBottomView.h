@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 typedef enum : NSUInteger {
     CLSelectField,
     CLSeeCache,
@@ -15,7 +16,12 @@ typedef enum : NSUInteger {
     CLSelectPage
 } CLBottomClickedType;
 
+typedef void(^CLBottomViewBlock)(NSInteger index, CLBottomClickedType buttomType);
+
+
 @interface CLBottomView : UIView
 
+@property (nonatomic, assign) NSInteger         pageCurrentIndex;
+@property (nonatomic, strong) CLBottomViewBlock bottomBlock;
 
 @end

@@ -12,6 +12,7 @@ typedef void(^CLPageTableBlock)(NSIndexPath *indexPath);
 
 @interface CLPageTableView : UITableView<UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, weak) CLPageTableBlock pageTableBlock;
+@property (nonatomic, strong)       CLPageTableBlock    pageTableBlock;
+@property (nonatomic, strong)       NSMutableArray      *pagesArray;
 
 @end
