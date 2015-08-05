@@ -23,8 +23,8 @@
     
     CLHomeViewController *homeVC = [[CLHomeViewController alloc] init];
     UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeVC];
-    CLPersonViewController *personVC = [[CLPersonViewController alloc] init];
-    UINavigationController *personNav = [[UINavigationController alloc] initWithRootViewController:personVC];
+    CLPersonViewController *personNav = [[CLPersonViewController alloc] init];
+//    UINavigationController *personNav = [[UINavigationController alloc] initWithRootViewController:personVC];
 
     CLSettingViewController *settingVC = [[CLSettingViewController alloc] init];
     UINavigationController *settingNav = [[UINavigationController alloc] initWithRootViewController:settingVC];
