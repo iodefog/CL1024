@@ -44,31 +44,22 @@
 
 - (void)setObject:(CLFieldListModel *)item{
     self.titleLabel.text = item.title;
-    [self giveValueToUrl];
     self.authorLabel.text = item.author;
     self.timeLabel.text = item.time;
     self.commentCountLabel.text = item.commentCount;
     self.haveReadLabel.hidden = YES;
 }
 
-- (void)giveValueToUrl{
-    for (RTLabelComponent *component in self.titleLabel.textComponents) {
-       NSString *url = component.attributes[@"href"];
-        if (url) {
-            self.url = [NSString stringWithFormat:@"%@%@",DefalutHost,url];
-            break;
-        }
-    }
-}
+
 
 - (void)layoutSubviews{
     [super layoutSubviews];
     self.titleLabel.frame = CGRectMake(10, 7, self.width - 60, 50);
     self.titleLabel.height = self.titleLabel.optimumSize.height;
     self.haveReadLabel.frame = CGRectMake(self.width-40, self.titleLabel.top, 30, 16);
-    self.authorLabel.frame =CGRectMake(10, 53, 200, 15);
-    self.timeLabel.frame = CGRectMake(340/2, self.authorLabel.top, 130/2, self.authorLabel.height);
-    self.commentIcon.frame = CGRectMake(self.timeLabel.right+40, self.timeLabel.top, 30/2, 30/2);
+    self.authorLabel.frame =CGRectMake(10,self.titleLabel.bottom+10, 200, 20);
+    self.timeLabel.frame = CGRectMake(300/2, self.authorLabel.top, 160/2, self.authorLabel.height);
+    self.commentIcon.frame = CGRectMake(self.timeLabel.right+20, self.timeLabel.top, 40/2, 40/2);
     self.commentCountLabel.frame = CGRectMake(self.commentIcon.left+self.commentIcon.width+5, self.timeLabel.top, 60, self.timeLabel.height);
 }
 
@@ -76,7 +67,7 @@
     if (!_titleLabel) {
         _titleLabel = [[RTLabel alloc] initWithFrame:CGRectZero];
         _titleLabel.userInteractionEnabled = NO;
-        _titleLabel.font = [UIFont systemFontOfSize:14];
+        _titleLabel.font = [UIFont systemFontOfSize:15];
     }
     return _titleLabel;
 }
@@ -84,7 +75,7 @@
 - (UILabel *)authorLabel{
     if (!_authorLabel) {
         _authorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _authorLabel.font = [UIFont systemFontOfSize:10];
+        _authorLabel.font = [UIFont systemFontOfSize:14];
         _authorLabel.textColor = UIColorFromRGB(0xafafaf);
     }
     return _authorLabel;
@@ -93,7 +84,7 @@
 - (UILabel *)timeLabel{
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.font = [UIFont systemFontOfSize:10];
+        _timeLabel.font = [UIFont systemFontOfSize:14];
         _timeLabel.textColor = UIColorFromRGB(0xafafaf);
     }
     return _timeLabel;
@@ -102,7 +93,7 @@
 - (UILabel *)commentCountLabel{
     if (!_commentCountLabel) {
         _commentCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _commentCountLabel.font = [UIFont systemFontOfSize:10];
+        _commentCountLabel.font = [UIFont systemFontOfSize:14];
         _commentCountLabel.textColor = UIColorFromRGB(0xafafaf);
     }
     return _commentCountLabel;

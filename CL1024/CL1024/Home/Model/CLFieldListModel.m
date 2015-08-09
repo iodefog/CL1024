@@ -8,17 +8,32 @@
 
 #import "CLFieldListModel.h"
 #import "GDataXMLNode.h"
-
+#import "RTLabel.h"
 @implementation CLFieldListModel
 
 - (void)parseFieldListWithData:(GDataXMLNode *)node index:(NSInteger)index{
     self.author  = [[node firstNodeForXPath:[NSString stringWithFormat:@"//tr[%ld]/td[3]/a", index] error:nil] stringValue];
     self.time = [[node firstNodeForXPath:[NSString stringWithFormat:@"//tr[%ld]/td[3]/div", index] error:nil] stringValue];
     self.titleStr =  [[node firstNodeForXPath:[NSString stringWithFormat:@"//tr[%ld]/td[2]/h3/a", index] error:nil] stringValue];
-    self.title = [[node firstNodeForXPath:[NSString stringWithFormat:@"//tr[%ld]/td[2]/h3/a", index] error:nil] XMLString];
+    GDataXMLNode *element = [node firstNodeForXPath:[NSString stringWithFormat:@"//tr[%ld]/td[2]/h3/a", index] error:nil] ;
+    RTLabelExtractedComponent *component = [RTLabel extractTextStyleFromText:[element XMLString] paragraphReplacement:@"\n"];
+    self.url = [self getValueToUrlWithArray:component.textComponents];
+    self.title = (element.children.count > 0) ? [element.children[0] XMLString] : @"";
     self.commentCount = [[node firstNodeForXPath:[NSString stringWithFormat:@"//tr[%ld]/td[4]", index] error:nil] stringValue];
 }
 
+
+- (NSString *)getValueToUrlWithArray:(NSArray *)textComponents{
+    NSString *url = nil;
+    for (RTLabelComponent *component in textComponents) {
+        NSString *href = component.attributes[@"href"];
+        if (href) {
+            url = [NSString stringWithFormat:@"%@%@",DefalutHost,href];
+            break;
+        }
+    }
+    return url;
+}
 
 + (NSMutableArray *)parseFieldListWithData:(NSData *)data{
     //将gb2312转换为  utf8
@@ -35,7 +50,7 @@
     for (int index = 0; index < node.childCount; index++) {
         CLFieldListModel *model = [[CLFieldListModel alloc] init];
         [model parseFieldListWithData:node index:index];
-        if (model.title) {
+        if (!isBlankString(model.title)) {
             [modelsArray addObject:model];
         }
     }

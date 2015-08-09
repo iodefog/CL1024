@@ -58,7 +58,7 @@
         GDataXMLDocument *html = [[GDataXMLDocument alloc] initWithHTMLString:str error:&error];
         DLog(@"******* %@", error);
         GDataXMLNode *element = [[html rootElement] childAtIndex:2];
-        GDataXMLNode *node = [element firstNodeForXPath:@"//*[@id=\"main\"]/div[4]/table/tr[1]/th[2]/table/tr/td/div[4]" error:&error];
+        GDataXMLNode *node = [element firstNodeForXPath:@"//*[@id=\"main\"]/div[3]/table/tr[1]/th[2]/table/tr/td/div[4]" error:&error];
         DLog(@"******* %@", error);
         mySelf.pageCount = [[[element firstNodeForXPath:@"//*[@id=\"main\"]/div[2]/table/tr/td[1]/div/a[5]" error:&error] stringValue] integerValue];
         DLog(@"******* %@", error);

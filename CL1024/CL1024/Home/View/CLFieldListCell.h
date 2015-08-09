@@ -11,8 +11,6 @@
 #import "CLCoreDataManager.h"
 @interface CLFieldListCell : UITableViewCell
 
-@property (nonatomic, strong) NSString *url;
-
 - (void)setObject:(id)item;
 
 @end

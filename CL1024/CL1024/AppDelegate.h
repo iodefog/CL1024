@@ -19,6 +19,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+bool isBlankString(NSString *string);
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 

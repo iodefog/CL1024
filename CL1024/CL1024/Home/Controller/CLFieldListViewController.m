@@ -51,12 +51,16 @@
         }
         [mySelf requestHeader];
     }];
-    [self.tableView.header beginRefreshing];
+    if(self.model.count ==0){
+        [mySelf showProgressHUD];
+        [mySelf requestHeader];
+    }else {
+        [self.tableView.header beginRefreshing];
+    }
 }
 
 - (void)requestHeader{
     __block typeof(self) mySelf = self;
-    [mySelf showProgressHUD];
     [self requestMainWithPageIndex:self.pageIndex Success:^(BOOL Success,NSArray *newItems) {
         // 进入刷新状态后会自动调用这个block
         [mySelf.tableView.header endRefreshing];
@@ -124,7 +128,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 142/2.;
+    return 200/2.;
 }
 
 - (CLFieldListCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -134,11 +138,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    CLFieldListCell *cell = (CLFieldListCell *)[tableView cellForRowAtIndexPath:indexPath];
     CLFieldViewController *fieldVC = [[CLFieldViewController alloc] init];
     CLFieldListModel *model = self.model[indexPath.row];
     fieldVC.title = model.titleStr;
-    fieldVC.url = cell.url;
+    fieldVC.url = model.url;
     [self.navigationController pushViewController:fieldVC animated:YES];
 }
 

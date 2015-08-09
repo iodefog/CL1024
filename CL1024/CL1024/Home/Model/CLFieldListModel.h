@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString       *author;
 @property (nonatomic, strong) NSString       *time;
 @property (nonatomic, strong) NSString       *commentCount;
+@property (nonatomic, strong) NSString       *url;
 
 + (NSMutableArray *)parseFieldListWithData:(NSData *)data;
 

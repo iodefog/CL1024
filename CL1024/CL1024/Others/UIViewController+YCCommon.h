@@ -32,12 +32,6 @@
 
 - (void)showDownButton;
 
--(void)addSegmentButtonInNav:(NSArray *)titleArray;
-
--(void)addRoundSegmentButton:(NSArray *)titleArray;
-
--(void)segmentSelectIndex:(NSInteger)index;
-
 - (void)backBarButtonPressed:(id)sender;
 
 - (void)showRightButtonWithTitle:(NSString *)title;
