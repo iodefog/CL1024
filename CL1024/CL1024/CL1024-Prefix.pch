@@ -17,7 +17,9 @@
 #import "UIViewController+YCCommon.h"
 #import "NSObject+HLPropertyListing.h"
 
-#define DefalutHost @"http://cc.bearhk.info/"
+#define DefalutHost [[NSUserDefaults standardUserDefaults] objectForKey:@"CLHost"]
+#define SetDefaultHost(host) [[NSUserDefaults standardUserDefaults] setObject:host forKey:@"CLHost"];
+
 #define DefalutUrl @"/thread0806.php"
 
 #endif

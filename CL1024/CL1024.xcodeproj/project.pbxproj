@@ -16,6 +16,7 @@
 		4F41A2D81B613405001B583A /* CLHomeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F41A2D71B613405001B583A /* CLHomeTableCell.m */; };
 		4F66C1BE1B63935200DC7490 /* CLHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F66C1BD1B63935200DC7490 /* CLHomeModel.m */; };
 		4F66C1C11B63BD3A00DC7490 /* CLFieldListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F66C1C01B63BD3A00DC7490 /* CLFieldListViewController.m */; };
+		4F7DFA101B78E139005EA041 /* CLEditHostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7DFA0F1B78E139005EA041 /* CLEditHostViewController.m */; };
 		4F8F160D1B5B4A3800306238 /* UIView+RMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F160C1B5B4A3800306238 /* UIView+RMAdditions.m */; };
 		4F8F16111B5B8A7C00306238 /* CLSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F16101B5B8A7C00306238 /* CLSettingCell.m */; };
 		4F8F16141B5B8C6200306238 /* CLSettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F16131B5B8C6200306238 /* CLSettingModel.m */; };
@@ -56,6 +57,8 @@
 		4F66C1BD1B63935200DC7490 /* CLHomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLHomeModel.m; sourceTree = "<group>"; };
 		4F66C1BF1B63BD3A00DC7490 /* CLFieldListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLFieldListViewController.h; sourceTree = "<group>"; };
 		4F66C1C01B63BD3A00DC7490 /* CLFieldListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLFieldListViewController.m; sourceTree = "<group>"; };
+		4F7DFA0E1B78E139005EA041 /* CLEditHostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLEditHostViewController.h; sourceTree = "<group>"; };
+		4F7DFA0F1B78E139005EA041 /* CLEditHostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLEditHostViewController.m; sourceTree = "<group>"; };
 		4F8F160A1B5B4A3800306238 /* DefaultDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultDefine.h; sourceTree = "<group>"; };
 		4F8F160B1B5B4A3800306238 /* UIView+RMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RMAdditions.h"; sourceTree = "<group>"; };
 		4F8F160C1B5B4A3800306238 /* UIView+RMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RMAdditions.m"; sourceTree = "<group>"; };
@@ -352,6 +355,8 @@
 			children = (
 				4FE6F9A51B594EDA00E93B6E /* CLSettingViewController.h */,
 				4FE6F9A61B594EDA00E93B6E /* CLSettingViewController.m */,
+				4F7DFA0E1B78E139005EA041 /* CLEditHostViewController.h */,
+				4F7DFA0F1B78E139005EA041 /* CLEditHostViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -504,6 +509,7 @@
 				4FA4A64C1B665F4600B54316 /* CLFieldViewController.m in Sources */,
 				4F41A2D81B613405001B583A /* CLHomeTableCell.m in Sources */,
 				4FC68EEE1B6A5AB600C0C71A /* CLBottomView.m in Sources */,
+				4F7DFA101B78E139005EA041 /* CLEditHostViewController.m in Sources */,
 				4FE6F9511B59341400E93B6E /* AppDelegate.m in Sources */,
 				4F8F16141B5B8C6200306238 /* CLSettingModel.m in Sources */,
 				4F66C1BE1B63935200DC7490 /* CLHomeModel.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "CLSettingViewController.h"
+#import "CLEditHostViewController.h"
 #import "CLSettingCell.h"
 
 @interface CLSettingViewController()<UITableViewDataSource, UITableViewDelegate>
@@ -98,6 +99,13 @@
     [cell setObject:self.itemsArray[indexPath.section][indexPath.row] ];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ((indexPath.section == 3) && (indexPath.row == 1)) {
+        CLEditHostViewController *editVC = [[CLEditHostViewController alloc] init];
+        [self.navigationController pushViewController:editVC animated:YES];
+    }
 }
 
 #pragma mark - Create View

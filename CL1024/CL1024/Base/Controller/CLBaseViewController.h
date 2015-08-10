@@ -13,6 +13,7 @@
 
 - (void)clickedPerson:(UIBarButtonItem *)barItem;
 - (void)clickedSetting:(UIBarButtonItem *)barItem;
+- (void)checkResetState;
 - (UIBarButtonItem *)createButtonWithImage:(NSString *)image SEL:(SEL)sel left:(BOOL)left;
 - (void)layoutSubViews;
 

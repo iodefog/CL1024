@@ -56,6 +56,12 @@
     }
 }
 
+- (void)checkResetState{
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    if (delegate.IIVDC.slideControllerState != SKSlideControllerStateRevealedNone) {
+        [delegate.IIVDC showMainContainerViewAnimated:YES];
+    }
+}
 
 
 #pragma mark - Self create

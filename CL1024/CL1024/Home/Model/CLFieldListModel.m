@@ -65,9 +65,17 @@
     GDataXMLDocument *html = [[GDataXMLDocument alloc] initWithHTMLString:str error:&error];
     DLog(@"******* %@", error);
     GDataXMLNode *element = [[html rootElement] childAtIndex:2];
-    GDataXMLNode *node = [element firstNodeForXPath:@"//*[@id=\"main\"]/div[3]/table/tr/td[1]/div/a[5]" error:&error];
+    GDataXMLNode *node = [element firstNodeForXPath:@"//*[@id=\"last\"]" error:&error];
     DLog(@"******* %@", error);
-    return [[node stringValue] integerValue];
+    NSString *page = [node XMLString];
+    NSString *regex = @"(?=page).*?(?=\")";
+    NSString *result = nil;
+    NSRange range = [page rangeOfString:regex options:NSRegularExpressionSearch];
+    if (range.location != NSNotFound) {
+        result = [[page substringWithRange:range] stringByReplacingOccurrencesOfString:@"page=" withString:@""];
+    }
+    
+    return [result integerValue];
 }
 
 @end

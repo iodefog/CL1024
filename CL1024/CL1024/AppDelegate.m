@@ -33,11 +33,13 @@ bool isBlankString(NSString *string) {
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
+    if (nil == DefalutHost) {
+        SetDefaultHost(@"http://cc.bearhk.info/");
+    }
     
     CLHomeViewController *homeVC = [[CLHomeViewController alloc] init];
     UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeVC];
     CLPersonViewController *personNav = [[CLPersonViewController alloc] init];
-//    UINavigationController *personNav = [[UINavigationController alloc] initWithRootViewController:personVC];
 
     CLSettingViewController *settingVC = [[CLSettingViewController alloc] init];
     UINavigationController *settingNav = [[UINavigationController alloc] initWithRootViewController:settingVC];

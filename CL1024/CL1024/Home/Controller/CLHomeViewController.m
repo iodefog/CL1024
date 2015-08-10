@@ -166,6 +166,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self checkResetState];
     CLHomeModel *model = nil;
     if(tableView == self.clMoveTableView){
         model = self.clMoveArray[indexPath.section];
@@ -178,6 +179,7 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self checkResetState];
     if (scrollView == self.tableContentView) {
         if (scrollView.contentOffset.x > scrollView.width/2) {
             [self.segmentedControl setSelectedIndex:1];
