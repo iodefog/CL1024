@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "CLNavViewController.h"
 #import "CLHomeViewController.h"
 #import "CLPersonViewController.h"
 #import "CLSettingViewController.h"
@@ -38,13 +39,13 @@ bool isBlankString(NSString *string) {
     }
     
     CLHomeViewController *homeVC = [[CLHomeViewController alloc] init];
-    UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeVC];
+    self.homeNav = [[CLNavViewController alloc] initWithRootViewController:homeVC];
     CLPersonViewController *personNav = [[CLPersonViewController alloc] init];
 
     CLSettingViewController *settingVC = [[CLSettingViewController alloc] init];
-    UINavigationController *settingNav = [[UINavigationController alloc] initWithRootViewController:settingVC];
+    CLNavViewController *settingNav = [[CLNavViewController alloc] initWithRootViewController:settingVC];
 
-    self.IIVDC = [SKSlideViewController getSlideViewControllerWithMainController:(id)homeNav leftController:(id)settingNav rightController:(id)personNav];
+    self.IIVDC = [SKSlideViewController getSlideViewControllerWithMainController:(id)self.homeNav leftController:(id)settingNav rightController:(id)personNav];
     self.IIVDC.view.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = self.IIVDC;
     

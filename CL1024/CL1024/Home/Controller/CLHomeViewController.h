@@ -8,6 +8,6 @@
 
 #import "CLAPIViewController.h"
 
-@interface CLHomeViewController : CLAPIViewController
+@interface CLHomeViewController : CLAPIViewController<UIGestureRecognizerDelegate>
 
 @end

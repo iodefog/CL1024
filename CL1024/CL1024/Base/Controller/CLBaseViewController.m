@@ -63,6 +63,14 @@
     }
 }
 
+- (BOOL)checkIIVDCStateIsNone{
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    if (delegate.IIVDC.slideControllerState != SKSlideControllerStateRevealedNone) {
+        return NO;
+    }
+    return YES;
+}
+
 
 #pragma mark - Self create
 

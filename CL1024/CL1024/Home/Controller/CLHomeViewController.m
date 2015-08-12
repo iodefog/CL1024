@@ -11,11 +11,15 @@
 #import "CLHomeTableCell.h"
 #import "CLFieldListViewController.h"
 
-@interface CLHomeViewController() <UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate>
+@interface CLHomeViewController() <UITableViewDataSource, UITableViewDelegate>{
+    BOOL isRightDragging;
+    BOOL isLeftDragging;
+}
 
 @property (nonatomic, strong) AKSegmentedControl    *segmentedControl;
 @property (nonatomic, strong) UIButton              *headButton;
 @property (nonatomic, strong) UIScrollView          *tableContentView;
+@property (nonatomic, strong) UIImageView           *maskView;      //scrollView 的遮罩层
 @property (nonatomic, strong) UITableView           *clRestTableView;
 @property (nonatomic, strong) UITableView           *clMoveTableView;
 @property (nonatomic, strong) NSArray               *clRestArray;
@@ -37,6 +41,7 @@
     self.clRestTableView.frame = self.tableContentView.bounds;
     self.clMoveTableView.frame = self.tableContentView.bounds;
     self.clMoveTableView.left = self.clRestTableView.right;
+    self.maskView.frame = self.tableContentView.frame;
 }
 
 - (void)viewDidAppear:(BOOL)animated;{
@@ -57,22 +62,21 @@
     
     self.title  = @"草榴社区";
     self.view.backgroundColor = UIColorFromRGB(0xf9f9ed);
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-    }
-    self.navigationController.delegate = self;
-    self.navigationController.interactivePopGestureRecognizer.delegate =(id)self;
 
     self.navigationItem.leftBarButtonItem = [self createButtonWithImage:@"icon_main_setting" SEL:@selector(clickedSetting:) left:YES];
     self.navigationItem.rightBarButtonItem = [self createButtonWithImage:@"icon_main_person" SEL:@selector(clickedPerson:) left:NO];
     
     [self intanceData];
     
+    isLeftDragging = NO;
+    isRightDragging = NO;
+    
     [self.view addSubview:self.segmentedControl];
     [self.view addSubview:self.headButton];
     [self.view addSubview:self.tableContentView];
     [self.tableContentView addSubview:self.clRestTableView];
     [self.tableContentView addSubview:self.clMoveTableView];
+    [self.view addSubview:self.maskView];
     
     [self layoutSubViews];
 }
@@ -121,6 +125,46 @@
     [self.navigationController pushViewController:fieldListVC animated:YES];
 }
 
+-(void)showMask{
+    UIGraphicsBeginImageContext(self.tableContentView.bounds.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [self.tableContentView.layer renderInContext:context];
+    self.maskView.image  =  UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    self.maskView.hidden = NO;
+}
+
+- (void)contentScroll:(UIPanGestureRecognizer *)gesture{
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    if((self.tableContentView.contentOffset.x>= self.view.width) ){
+        [delegate.IIVDC didReceivePanGestureEvent:gesture];
+        isRightDragging = YES;
+    }else if(self.tableContentView.contentOffset.x<= 0){
+        [delegate.IIVDC didReceivePanGestureEvent:gesture];
+        isLeftDragging = YES;
+    }
+    
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        
+    }else if (gesture.state == UIGestureRecognizerStateEnded){
+        if (delegate.IIVDC.slideControllerState == SKSlideControllerStateRevealedNone) {
+            isRightDragging = NO;
+            isLeftDragging = NO;
+        }
+    }
+    
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    if([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]){
+        if ([self checkIIVDCStateIsNone]) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+
 #pragma mark - TabelView Method
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     NSInteger sectionCount = 0;
@@ -166,7 +210,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self checkResetState];
+    if (![self checkIIVDCStateIsNone]) {
+        return;
+    }
+    
     CLHomeModel *model = nil;
     if(tableView == self.clMoveTableView){
         model = self.clMoveArray[indexPath.section];
@@ -179,7 +226,13 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [self checkResetState];
+    if ((scrollView.contentOffset.x > self.view.width) || isRightDragging) {
+        scrollView.contentOffset = CGPointMake(self.view.width, scrollView.contentOffset.y) ;
+
+    } else if((scrollView.contentOffset.x < 0) || isLeftDragging) {
+        scrollView.contentOffset = CGPointMake(0, scrollView.contentOffset.y) ;
+    }
+    
     if (scrollView == self.tableContentView) {
         if (scrollView.contentOffset.x > scrollView.width/2) {
             [self.segmentedControl setSelectedIndex:1];
@@ -188,20 +241,6 @@
         }
     }
 }
-
-#pragma mark - 
-
--(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-}
--(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    if (navigationController.viewControllers.count == 1)
-        self.currentShowVC = Nil;
-    else
-        self.currentShowVC = viewController;
-}
-
 
 #pragma mark - 
 
@@ -261,13 +300,21 @@
         _tableContentView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         _tableContentView.showsHorizontalScrollIndicator = NO;
         _tableContentView.pagingEnabled = YES;
-        _tableContentView.bounces =  NO;
+//        _tableContentView.bounces =  NO;
         _tableContentView.delegate = self;
-
+        [_tableContentView.panGestureRecognizer addTarget:self action:@selector(contentScroll:)];
     }
     return _tableContentView;
 }
 
+- (UIImageView *)maskView{
+    if (!_maskView) {
+        _maskView = [[UIImageView alloc]initWithFrame:CGRectZero];
+        _maskView.userInteractionEnabled = NO;
+        _maskView.hidden = YES;
+    }
+    return _maskView;
+}
 
 
 #pragma mark - -

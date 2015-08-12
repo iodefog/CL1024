@@ -60,6 +60,7 @@ SKControllerBounds SKControllerBoundsMake(CGFloat minX,CGFloat maxX){
 @property (nonatomic,weak) UIViewController *mainViewController;
 @property (nonatomic,weak) UIViewController *rightViewController;
 @property (nonatomic,weak) UIPanGestureRecognizer *panRecognizer;
+@property (nonatomic,weak) UITapGestureRecognizer *tapRecognizer;
 
 @property (nonatomic) BOOL isMainControllerActive;
 @property (nonatomic,strong) NSString *storyBoardName;
@@ -521,6 +522,13 @@ SKControllerBounds SKControllerBoundsMake(CGFloat minX,CGFloat maxX){
     }
 }
 
+
+- (void)didReceiveTapGestureEvent:(UITapGestureRecognizer *)gesture{
+    if (self.slideControllerState != SKSlideControllerStateRevealedNone) {
+        [self showMainContainerViewAnimated:YES];
+    }
+}
+
 -(void)didReceivePanGestureEvent:(UIPanGestureRecognizer *)recognizer{
     
     static CGFloat previousTranslation=0;
@@ -576,6 +584,28 @@ SKControllerBounds SKControllerBoundsMake(CGFloat minX,CGFloat maxX){
     [view setFrame:frame];
 }
 
+- (void)addTapGestureToMainView{
+    if([self getMainControllerView]==nil){
+        return;
+    }
+    
+    if(self.tapRecognizer.view){
+        [self.tapRecognizer.view removeGestureRecognizer:self.tapRecognizer];
+        self.tapRecognizer=nil;
+    }
+    
+    UITapGestureRecognizer *recognizer=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didReceiveTapGestureEvent:)];
+    UIViewController *mainVC = nil;
+    if ([self.mainViewController isKindOfClass:[UINavigationController class]]) {
+        mainVC = ((UINavigationController *)self.mainViewController).visibleViewController;
+    }else {
+        mainVC = self.mainViewController;
+    }
+    recognizer.delegate = (id)mainVC;
+    [[self getMainControllerView] addGestureRecognizer:recognizer];
+    self.tapRecognizer=recognizer;
+}
+
 -(void)addPanGestureToMainView{
     if([self getMainControllerView]==nil){
         return;
@@ -591,9 +621,15 @@ SKControllerBounds SKControllerBoundsMake(CGFloat minX,CGFloat maxX){
     }
     
     UIPanGestureRecognizer *recognizer=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didReceivePanGestureEvent:)];
+    UIViewController *mainVC = nil;
+    if ([self.mainViewController isKindOfClass:[UINavigationController class]]) {
+        mainVC = ((UINavigationController *)self.mainViewController).visibleViewController;
+    }else {
+        mainVC = self.mainViewController;
+    }
+    recognizer.delegate = (id)mainVC;
     [[self getMainControllerView] addGestureRecognizer:recognizer];
     self.panRecognizer=recognizer;
-    recognizer=nil;
 }
 
 -(void)removePanGestureFromMainView{
@@ -603,6 +639,16 @@ SKControllerBounds SKControllerBoundsMake(CGFloat minX,CGFloat maxX){
     [self.panRecognizer.view removeGestureRecognizer:self.panRecognizer];
     self.panRecognizer=nil;
 }
+
+-(void)removeTapGestureFromMainView{
+    if(self.tapRecognizer==nil){
+        return;
+    }
+    [self.tapRecognizer.view removeGestureRecognizer:self.tapRecognizer];
+    self.tapRecognizer=nil;
+}
+
+
 
 #pragma mark -
 #pragma mark Controller Loading and Helpers
@@ -686,6 +732,8 @@ SKControllerBounds SKControllerBoundsMake(CGFloat minX,CGFloat maxX){
         self.mainViewController=controller;
         //add pan gesture if necessary
         [self addPanGestureToMainView];
+        [self addTapGestureToMainView];
+
         [self.mainViewController.view setClipsToBounds:NO];
         
     }else if(self.loadSource==SKLoadSourceStoryBoardSegues){
@@ -920,8 +968,10 @@ SKControllerBounds SKControllerBoundsMake(CGFloat minX,CGFloat maxX){
     _slidesOnPanGesture=pansOnGesture;
     if(pansOnGesture){
         [self addPanGestureToMainView];
+        [self addTapGestureToMainView];
     }else{
         [self removePanGestureFromMainView];
+        [self removeTapGestureFromMainView];
     }
 }
 

@@ -175,6 +175,9 @@ typedef NS_OPTIONS(NSUInteger, SKSlideControllerStyle){
 -(void)setSlidesOnPanGesture:(BOOL)pansOnGesture;
 
 
+-(void)didReceivePanGestureEvent:(UIPanGestureRecognizer *)recognizer;
+
+
 /**
 
  */
