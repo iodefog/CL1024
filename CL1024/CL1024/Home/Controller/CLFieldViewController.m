@@ -45,7 +45,7 @@
 }
 
 - (void)reloadRequestData{
-    self.url = [NSString stringWithFormat:@"%@%@?tid=%@&page=%@",DefalutHost,@"read.php",self.tid,@(self.pageIndex)];
+    self.url = [NSString stringWithFormat:@"%@%@?tid=%@&page=%@",kDefalutHost,@"read.php",self.tid,@(self.pageIndex)];
     
     [self showProgressHUD];
     __block typeof(self) mySelf = self;

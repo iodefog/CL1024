@@ -102,9 +102,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.IIVDC showMainContainerViewAnimated:YES];
+    
     if ((indexPath.section == 3) && (indexPath.row == 1)) {
         CLEditHostViewController *editVC = [[CLEditHostViewController alloc] init];
-        [self.navigationController pushViewController:editVC animated:YES];
+        [delegate.homeNav pushViewController:editVC animated:YES];
     }
 }
 

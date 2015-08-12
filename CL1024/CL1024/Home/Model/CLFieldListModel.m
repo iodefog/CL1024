@@ -28,7 +28,7 @@
     for (RTLabelComponent *component in textComponents) {
         NSString *href = component.attributes[@"href"];
         if (href) {
-            url = [NSString stringWithFormat:@"%@%@",DefalutHost,href];
+            url = [NSString stringWithFormat:@"%@%@",kDefalutHost,href];
             break;
         }
     }

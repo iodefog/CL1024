@@ -78,8 +78,8 @@
             break;
     }
 
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@?fid=%@",DefalutHost, DefalutUrl, @(fid)];
-    NSString *subUrlStr = [NSString stringWithFormat:@"%@%@?fid=%@",DefalutHost, DefalutUrl, @(subFid)];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@?fid=%@",kDefalutHost, kDefalutUrl, @(fid)];
+    NSString *subUrlStr = [NSString stringWithFormat:@"%@%@?fid=%@",kDefalutHost, kDefalutUrl, @(subFid)];
 
     return sub ? subUrlStr : urlStr;
 }

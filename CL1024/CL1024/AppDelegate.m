@@ -34,8 +34,9 @@ bool isBlankString(NSString *string) {
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    if (nil == DefalutHost) {
-        SetDefaultHost(@"http://cc.bearhk.info/");
+    NSString *host = DefaultValueForKey(kDefaultUrlKey);
+    if (nil == host) {
+        kSetDefaultHost(kDefalutHost);
     }
     
     CLHomeViewController *homeVC = [[CLHomeViewController alloc] init];
