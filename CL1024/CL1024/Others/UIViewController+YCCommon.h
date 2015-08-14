@@ -79,6 +79,11 @@
 
 -(void)registerTableView:(UITableView *)tableView withCellNibName:(NSString *)nibName cellIdentifier:(NSString *)cellIdentifier;
 
+- (void)showPreViewImageView:(NSString *)imageUrl;
+
+- (void)hiddenPreViewImageView;
+
+
 @end
 
 

@@ -1,6 +1,0 @@
-module AKSegmentedControl {
-  umbrella header "AKSegmentedControl-umbrella.h"
-
-  export *
-  module * { export * }
-}

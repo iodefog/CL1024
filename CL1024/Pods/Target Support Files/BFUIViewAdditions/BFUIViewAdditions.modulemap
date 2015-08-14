@@ -1,6 +1,0 @@
-module BFUIViewAdditions {
-  umbrella header "BFUIViewAdditions-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -116,6 +116,14 @@
 
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    if (request.URL.query) {
+        [self showPreViewImageView:request.URL.query];
+        return NO;
+    }
+    return YES;
+}
+
 
 - (void)layoutSubViews{
     [super layoutSubViews];

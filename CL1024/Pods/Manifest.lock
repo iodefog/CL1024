@@ -34,6 +34,9 @@ PODS:
   - NSObject+HLPropertyListing (1.0.0)
   - PopoverView (0.0.2)
   - RTLabel (1.0.1)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - SKSlideViewController (0.0.1)
 
 DEPENDENCIES:
@@ -48,6 +51,7 @@ DEPENDENCIES:
   - NSObject+HLPropertyListing (~> 1.0.0)
   - PopoverView (~> 0.0.2)
   - RTLabel (~> 1.0.1)
+  - SDWebImage (~> 3.7.3)
   - SKSlideViewController (~> 0.0.1)
 
 SPEC CHECKSUMS:
@@ -62,6 +66,7 @@ SPEC CHECKSUMS:
   NSObject+HLPropertyListing: 49bcb827af789ebc4817c4922e466df29a07ef04
   PopoverView: 62e83ffda75944d6cf2de9c6593489f3097dc1a3
   RTLabel: 6005d07fef57b101097c4271f804daae3110cbca
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SKSlideViewController: 9ecbbda4ded3d9ff1a3b17f0db73b28271e8a237
 
 COCOAPODS: 0.38.1

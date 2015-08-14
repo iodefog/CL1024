@@ -7,6 +7,7 @@
 //
 
 #import "UIViewController+YCCommon.h"
+#import "SDWebImageManager.h"
 #import "YCProgressHUD.h"
 
 @implementation UIViewController (YCCommon)
@@ -348,6 +349,41 @@
         }
     }
     return self.navigationController.viewControllers[0];
+}
+
+- (void)showPreViewImageView:(NSString *)imageUrl{
+    UIView *bgView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    bgView.tag = 10000;
+    bgView.backgroundColor = [UIColor blackColor];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    NSString *regex = @"(?=http).*?(?=&)";
+    NSRange range = [imageUrl rangeOfString:regex options:NSRegularExpressionSearch];
+    if (range.location != NSNotFound) {
+        imageUrl = [[imageUrl substringWithRange:range] stringByReplacingOccurrencesOfString:@"______" withString:@"."];
+    }
+
+   [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:imageUrl] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        imageView.image = image;
+        if (image.size.width > self.view.frame.size.width) {
+            CGFloat height = self.view.frame.size.height/self.view.frame.size.width * image.size.width;
+            imageView.frame = CGRectMake(0, 0, self.view.frame.size.width, height);
+        }else if(image.size.height > self.view.frame.size.height){
+            CGFloat width = self.view.frame.size.width/self.view.frame.size.height * image.size.height;
+            imageView.frame = CGRectMake(0, 0, width, self.view.frame.size.height);
+        }
+        imageView.center = bgView.center;
+    }];
+    
+    [bgView addSubview:imageView];
+    [bgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenPreViewImageView)]];
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.homeNav.view addSubview:bgView];
+}
+
+- (void)hiddenPreViewImageView{
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [[delegate.homeNav.view viewWithTag:10000] removeFromSuperview];
 }
 
 @end

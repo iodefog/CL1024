@@ -1,6 +1,0 @@
-module PopoverView {
-  umbrella header "PopoverView-umbrella.h"
-
-  export *
-  module * { export * }
-}

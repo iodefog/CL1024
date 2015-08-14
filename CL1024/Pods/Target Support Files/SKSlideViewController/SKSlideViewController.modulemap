@@ -1,6 +1,0 @@
-module SKSlideViewController {
-  umbrella header "SKSlideViewController-umbrella.h"
-
-  export *
-  module * { export * }
-}
