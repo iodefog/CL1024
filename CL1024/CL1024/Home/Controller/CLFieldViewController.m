@@ -46,6 +46,7 @@
 
 - (void)reloadRequestData{
     self.url = [NSString stringWithFormat:@"%@%@?tid=%@&page=%@",kDefalutHost,@"read.php",self.tid,@(self.pageIndex)];
+//    self.url = @"http://cc.bearhk.info/read.php?tid=1598848&page=1";
     
     [self showProgressHUD];
     __block typeof(self) mySelf = self;
@@ -68,6 +69,7 @@
         
         NSString *htmls = [NSString stringWithFormat:@"<html> \n"
                            "<head> \n"
+                           "<link rel=\"stylesheet\" href=\"http://www.viidii.info/web/style.css?v=1.948\" type=\"text/css\">"
                            "<style type=\"text/css\"> \n"
                            "body {font-family: \"%@\"; font-size: %f; }\n"
                            "</style> \n"
@@ -87,7 +89,11 @@
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    
+    // 修改文字
+    NSString *meta = [NSString stringWithFormat:@"document.getElementsByName(\"viewport\")[0].content = \"width=%@, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes\"",@(self.view.width-20)];
+    [webView stringByEvaluatingJavaScriptFromString:meta];//(initial-scale是初始缩放比,minimum-scale=1.0最小缩放比,maximum-scale=5.0最大缩放比,user-scalable=yes是否支持缩放)
+
+//    return;
     //拦截网页图片  并修改图片大小
     NSString *script = [NSString stringWithFormat: @"var script = document.createElement('script');"
                         "script.type = 'text/javascript';"
@@ -103,14 +109,11 @@
                         "}"
                         "}"
                         "}\";"
-                        "document.getElementsByTagName('head')[0].appendChild(script);",self.view.width];
+                        "document.getElementsByTagName('head')[0].appendChild(script);",self.view.width-60];
     
     [webView stringByEvaluatingJavaScriptFromString:script];
     [webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
 
-    // 修改文字
-    NSString *meta = [NSString stringWithFormat:@"document.getElementsByName(\"viewport\")[0].content = \"width=%@, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes\"",@(self.view.width)];
-    [webView stringByEvaluatingJavaScriptFromString:meta];//(initial-scale是初始缩放比,minimum-scale=1.0最小缩放比,maximum-scale=5.0最大缩放比,user-scalable=yes是否支持缩放)
 }
 
 

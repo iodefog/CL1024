@@ -169,6 +169,10 @@
     self.navigationItem.rightBarButtonItems = @[barItem2,barItem1];
 }
 
+- (void)rightFirstBarButtonPressed:(UIButton *)sender{
+    
+}
+
 - (void)showRightButtonWithBackgroundImage:(UIImage *)image andTitle:(NSString *)title
 {
     UIButton *button = [self createButtonWithTitle:title];
