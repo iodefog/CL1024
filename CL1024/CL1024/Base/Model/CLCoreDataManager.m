@@ -20,7 +20,8 @@
     fieldModel.commentCount = model.commentCount;
     fieldModel.time = model.time;
     fieldModel.author = model.author;
-    
+    fieldModel.url = model.url;
+
     NSError* error;
     BOOL isSaveSuccess=[delegate.managedObjectContext save:&error];
     if (!isSaveSuccess) {

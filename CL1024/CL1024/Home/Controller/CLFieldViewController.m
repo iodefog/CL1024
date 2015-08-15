@@ -12,11 +12,15 @@
 #import "GDataXMLNode.h"
 #import "MarqueeLabel.h"
 #import "CLCustomWebView.h"
-@interface CLFieldViewController ()
+#import "MWPhotoBrowser.h"
+
+@interface CLFieldViewController ()<MWPhotoBrowserDelegate>
 
 @property (nonatomic, strong)  NSString         *tid;
+@property (nonatomic, strong)  NSMutableArray   *browerPhotoArray;
 @property (nonatomic, strong)  CLCustomWebView  *webView;
 @property (nonatomic, strong)  CLBottomView     *bottomView;
+
 @end
 
 @implementation CLFieldViewController
@@ -44,9 +48,16 @@
     [self reloadRequestData];
 }
 
+- (void)layoutSubViews{
+    [super layoutSubViews];
+    CGFloat screemHeight = kScreenHeight;
+    CGFloat navHeight = kNavHeight;
+    self.webView.frame = CGRectMake(10, 0, self.view.width-20, screemHeight - navHeight-self.bottomView.height);
+    self.bottomView.top = self.webView.bottom;
+}
+
 - (void)reloadRequestData{
     self.url = [NSString stringWithFormat:@"%@%@?tid=%@&page=%@",kDefalutHost,@"read.php",self.tid,@(self.pageIndex)];
-//    self.url = @"http://cc.bearhk.info/read.php?tid=1598848&page=1";
     
     [self showProgressHUD];
     __block typeof(self) mySelf = self;
@@ -118,20 +129,40 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     if (request.URL.query) {
-        [self showPreViewImageView:request.URL.query];
+//        [self showPreViewImageView:request.URL.query];
+        NSString *imageUrl = request.URL.query;
+        NSString *regex = @"(?=http).*?(?=&)";
+        NSRange range = [imageUrl rangeOfString:regex options:NSRegularExpressionSearch];
+        if (range.location != NSNotFound) {
+            imageUrl = [[imageUrl substringWithRange:range] stringByReplacingOccurrencesOfString:@"______" withString:@"."];
+        }
+        
+        MWPhoto *phone = [MWPhoto photoWithURL:[NSURL URLWithString:imageUrl]];
+        phone.caption = @"nothing";
+        [self.browerPhotoArray addObject:phone];
+        MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+        browser.displayActionButton = YES;
+        
+        [self.navigationController pushViewController:browser animated:YES];
+        
         return NO;
     }
     return YES;
 }
 
-
-- (void)layoutSubViews{
-    [super layoutSubViews];
-    CGFloat screemHeight = kScreenHeight;
-    CGFloat navHeight = kNavHeight;
-    self.webView.frame = CGRectMake(10, 0, self.view.width-20, screemHeight - navHeight-self.bottomView.height);
-    self.bottomView.top = self.webView.bottom;
+#pragma mark  - Brower Method
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return self.browerPhotoArray.count;
 }
+
+- (MWPhoto *)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (index < self.browerPhotoArray.count)
+        return [self.browerPhotoArray objectAtIndex:index];
+    return nil;
+}
+
+
+#pragma mark - Create View
 
 - (MarqueeLabel *)marqueeLabel{
     MarqueeLabel *label = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, self.view.width-100,44)];
@@ -165,6 +196,11 @@
     [super didReceiveMemoryWarning];
 }
 
-
+- (NSMutableArray *)browerPhotoArray{
+    if (!_browerPhotoArray) {
+        _browerPhotoArray = [NSMutableArray array];
+    }
+    return _browerPhotoArray;
+}
 
 @end

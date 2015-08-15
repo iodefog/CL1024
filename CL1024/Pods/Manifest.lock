@@ -22,6 +22,7 @@ PODS:
     - AFNetworking/NSURLSession
   - AKSegmentedControl (1.0.4)
   - BFUIViewAdditions (0.1.0)
+  - DACircularProgress (2.3.1)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
   - FMDB/common (2.5)
@@ -31,6 +32,10 @@ PODS:
   - MarqueeLabel (2.2.5)
   - MBProgressHUD (0.9.1)
   - MJRefresh (2.3.2)
+  - MWPhotoBrowser (2.1.1):
+    - DACircularProgress (~> 2.3)
+    - MBProgressHUD (~> 0.9)
+    - SDWebImage (!= 3.7.2, ~> 3.7)
   - NSObject+HLPropertyListing (1.0.0)
   - PopoverView (0.0.2)
   - RTLabel (1.0.1)
@@ -48,6 +53,7 @@ DEPENDENCIES:
   - MarqueeLabel (~> 2.2.5)
   - MBProgressHUD (~> 0.9.1)
   - MJRefresh (~> 2.3.2)
+  - MWPhotoBrowser (~> 2.1.1)
   - NSObject+HLPropertyListing (~> 1.0.0)
   - PopoverView (~> 0.0.2)
   - RTLabel (~> 1.0.1)
@@ -58,11 +64,13 @@ SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   AKSegmentedControl: c076491ef773c0d70b70d03a8e5a0c04a9efbf08
   BFUIViewAdditions: 2047778bb98b19d9df4643f85cffb194e19079f3
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   GDataXML-HTML: dac3692417e9fc612f8e12d8baae3706fccedcc8
   MarqueeLabel: 65ca60ee9ba554be34f35339004c6c9fe6366a31
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MJRefresh: 0f6f5e8387970607c26080b44058b229a23065d7
+  MWPhotoBrowser: ba0d0c09ffda3a7ea10093518738c502c1c7141c
   NSObject+HLPropertyListing: 49bcb827af789ebc4817c4922e466df29a07ef04
   PopoverView: 62e83ffda75944d6cf2de9c6593489f3097dc1a3
   RTLabel: 6005d07fef57b101097c4271f804daae3110cbca

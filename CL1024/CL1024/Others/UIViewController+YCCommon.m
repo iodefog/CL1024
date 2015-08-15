@@ -361,7 +361,9 @@
     if (range.location != NSNotFound) {
         imageUrl = [[imageUrl substringWithRange:range] stringByReplacingOccurrencesOfString:@"______" withString:@"."];
     }
-
+    
+    return;
+    
    [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:imageUrl] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
         imageView.image = image;
@@ -376,14 +378,20 @@
     }];
     
     [bgView addSubview:imageView];
-    [bgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenPreViewImageView)]];
+    [bgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenPreViewImageView:)]];
+    [bgView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panImageView:)]];
+
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate.homeNav.view addSubview:bgView];
 }
 
-- (void)hiddenPreViewImageView{
+- (void)hiddenPreViewImageView:(UITapGestureRecognizer *)gesture{
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [[delegate.homeNav.view viewWithTag:10000] removeFromSuperview];
+}
+
+- (void)panImageView:(UIPanGestureRecognizer *)gesture{
+    
 }
 
 @end
