@@ -13,13 +13,16 @@
 #import "MarqueeLabel.h"
 #import "CLCustomWebView.h"
 #import "MWPhotoBrowser.h"
+#import "NSString+StringRegular.h"
 
 @interface CLFieldViewController ()<MWPhotoBrowserDelegate>
 
 @property (nonatomic, strong)  NSString         *tid;
 @property (nonatomic, strong)  NSMutableArray   *browerPhotoArray;
+@property (nonatomic, strong)  NSMutableArray   *photoUrlArray;
 @property (nonatomic, strong)  CLCustomWebView  *webView;
 @property (nonatomic, strong)  CLBottomView     *bottomView;
+@property (nonatomic, strong)  MWPhotoBrowser   *browser;
 
 @end
 
@@ -86,6 +89,13 @@
             mySelf.bottomView.pageCount = mySelf.pageCount;
         }
         
+        NSString *imageUrl = node.XMLString;
+        NSString *regex = @"(?=\\?http:).*?(?=&)";
+        self.photoUrlArray = [imageUrl substringByRegular:regex];
+        [self.photoUrlArray enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+            [self.browerPhotoArray addObject:[MWPhoto photoWithURL:[NSURL URLWithString:obj]]];
+        }];
+        
         NSString *htmls = [NSString stringWithFormat:@"<html> \n"
                            "<head> \n"
                            "<link rel=\"stylesheet\" href=\"http://www.viidii.info/web/style.css?v=1.948\" type=\"text/css\">"
@@ -105,6 +115,7 @@
     NSOperationQueue *queue = [NSOperationQueue mainQueue];
     [queue addOperation:operation];
 }
+
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
@@ -145,13 +156,11 @@
             imageUrl = [[imageUrl substringWithRange:range] stringByReplacingOccurrencesOfString:@"______" withString:@"."];
         }
         
-        MWPhoto *phone = [MWPhoto photoWithURL:[NSURL URLWithString:imageUrl]];
-        phone.caption = @"nothing";
-        [self.browerPhotoArray addObject:phone];
-        MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-        browser.displayActionButton = YES;
+        NSInteger index = [self.photoUrlArray indexOfObject:imageUrl];
+        self.browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+        [self.browser setCurrentPhotoIndex:index ];
         
-        [self.navigationController pushViewController:browser animated:YES];
+        [self.navigationController pushViewController:self.browser animated:YES];
         
         return NO;
     }
